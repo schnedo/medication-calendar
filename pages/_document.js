@@ -17,8 +17,8 @@ class _Document extends Document {
             <meta name='description' content='Description'/>
             <meta name='keywords' content='Keywords'/>
             <title>Medication Calendar</title>
-            <link rel="manifest" href="/manifest.json"/>
-            <link href='/favicon.ico' rel='icon' type='image/png'
+            <link rel="manifest" href={`${this.props.__NEXT_DATA__.assetPrefix}manifest.json`}/>
+            <link href={`${this.props.__NEXT_DATA__.assetPrefix}favicon.ico`} rel='icon' type='image/png'
                   sizes='16x16'/>
           </Head>
           <body>
