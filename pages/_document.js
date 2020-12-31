@@ -21,10 +21,10 @@ class _Document extends Document {
           <title>Medication Calendar</title>
           <link
             rel="manifest"
-            href={`${this.props.__NEXT_DATA__.assetPrefix}manifest.json`}
+            href={`${this.props.__NEXT_DATA__.assetPrefix}/manifest.json`}
           />
           <link
-            href={`${this.props.__NEXT_DATA__.assetPrefix}favicon.ico`}
+            href={`${this.props.__NEXT_DATA__.assetPrefix}/favicon.ico`}
             rel="icon"
             type="image/png"
             sizes="16x16"
