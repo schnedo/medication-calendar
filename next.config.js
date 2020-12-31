@@ -1,11 +1,9 @@
-const withPWA = require('next-pwa')
-
-const isProd = (process.env.NODE_ENV || 'production') === 'production';
+const withPWA = require("next-pwa");
 
 module.exports = withPWA({
   pwa: {
-    dest: 'public'
+    dest: "public",
   },
-  basePath: '/medication-calendar',
-  assetPrefix: '/medication-calendar/',
-})
+  basePath: "/medication-calendar",
+  assetPrefix: "/medication-calendar/",
+});
