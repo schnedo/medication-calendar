@@ -1,60 +1,38 @@
-import styles from "../styles/Home.module.css";
 import { ReactElement } from "react";
+import {
+  BatchNumber,
+  Dose,
+  Medicament,
+  Medication,
+  MedicationEntry,
+  MedicationEntryCard,
+} from "../lib/medicationEntry";
+import { BodyMass } from "../lib/contact";
+import Duration from "../lib/medicationEntry/model/Duration";
+
+const dummyEntry = new MedicationEntry(
+  new Date(),
+  [
+    new Medication(
+      new Dose(200),
+      new Medicament("name1", new BatchNumber(123)),
+    ),
+    new Medication(
+      new Dose(100),
+      new Medicament("name2", new BatchNumber(1234)),
+    ),
+  ],
+  new Duration({ minutes: 15 }),
+  "Rote Stelle an Einstichstelle, Einstichstelle an Wade",
+  new BodyMass(65),
+);
 
 export default function Home(): ReactElement {
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{" "}
-          <code className={styles.code}>pages/index.ts</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+    <>
+      <main>
+        <MedicationEntryCard medicationEntry={dummyEntry} />
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
+    </>
   );
 }

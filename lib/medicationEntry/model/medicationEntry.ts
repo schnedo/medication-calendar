@@ -1,6 +1,6 @@
-import { Duration } from "date-fns";
 import Medication from "./medication";
 import { BodyMass } from "../../contact/model";
+import Duration from "./Duration";
 
 export default class MedicationEntry {
   constructor(

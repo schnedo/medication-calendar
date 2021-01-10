@@ -22,13 +22,16 @@ class _Document extends Document {
         <Head>
           <meta charSet="utf-8" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-          <meta
-            name="viewport"
-            content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
-          />
           <meta name="description" content="Description" />
           <meta name="keywords" content="Keywords" />
-          <title>Medication Calendar</title>
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          />
           <link
             rel="manifest"
             href={`${this.props.__NEXT_DATA__.assetPrefix}/manifest.json`}
