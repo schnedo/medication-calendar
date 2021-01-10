@@ -9,6 +9,9 @@
 /coverage
 /cypress/screenshots
 /cypress/videos
+/.nyc_output
+**/__image_snapshots__/*.actual.png
+**/__image_snapshots__/*.diff.png
 
 # next.js
 /.next/

@@ -1,1 +1,9 @@
-{}
+{
+  "testFiles": "**/*.spec.*",
+  "experimentalComponentTesting": true,
+  "componentFolder": "lib",
+  "ignoreTestFiles": [
+    "**/__snapshots__/*",
+    "**/__image_snapshots__/*"
+  ]
+}

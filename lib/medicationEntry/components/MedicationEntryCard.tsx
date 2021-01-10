@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 import { Card, CardContent, makeStyles, Typography } from "@material-ui/core";
+import { MedicationCard } from "../components";
 import { MedicationEntry } from "../model";
-import { MedicationCard } from "./index";
 import { format } from "date-fns";
 
 const useStyles = makeStyles((theme) => ({
