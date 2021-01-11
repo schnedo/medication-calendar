@@ -9,6 +9,9 @@
 /coverage
 /cypress/screenshots
 /cypress/videos
+/.nyc_output
+**/__image_snapshots__/*.actual.png
+**/__image_snapshots__/*.diff.png
 
 # next.js
 /.next/
@@ -16,7 +19,9 @@
 
 # next-pwa
 /public/sw.js
+/public/sw.js.map
 /public/workbox*.js
+/public/workbox*.js.map
 
 # production
 /build

@@ -1,5 +1,5 @@
 describe("Test", () => {
-  it("should do things", async () => {
+  it("should do things", () => {
     expect(true).to.equal(true);
   });
 });
