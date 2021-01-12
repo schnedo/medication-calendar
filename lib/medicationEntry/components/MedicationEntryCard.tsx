@@ -54,11 +54,11 @@ export default function MedicationEntryCard({
           {format(medicationEntry.date, "EEEEEE dd")}
         </Typography>
         <div className={`${medicationsList} ${rowItem}`}>
-          {medicationEntry.medications.map((medication, index) => (
+          {medicationEntry.medications.map((medication) => (
             <MedicationCard
               medication={medication}
               className={medicationsListItem}
-              key={index}
+              key={medication.id}
             />
           ))}
           <Typography>{medicationEntry.comments}</Typography>

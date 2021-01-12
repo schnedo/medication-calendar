@@ -1,8 +1,11 @@
 import Medication from "./medication";
 import { BodyMass } from "../../contact/model";
 import Duration from "./Duration";
+import { v4 } from "uuid";
 
 export default class MedicationEntry {
+  readonly id: string = v4();
+
   constructor(
     readonly date: Date,
     readonly medications: Medication[],
