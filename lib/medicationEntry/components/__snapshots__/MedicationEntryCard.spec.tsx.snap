@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MedicationEntryCard should render correctly 1`] = `
+<div>
+  <div
+    class="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
+  >
+    <div
+      class="MuiCardContent-root makeStyles-row-3"
+    >
+      <p
+        class="MuiTypography-root makeStyles-header-1 MuiTypography-body1"
+      >
+        Tu 11
+      </p>
+      <div
+        class="makeStyles-medicationsList-5 makeStyles-rowItem-4"
+      >
+        <div
+          class="MuiPaper-root MuiCard-root makeStyles-medicationsListItem-6 MuiPaper-elevation1 MuiPaper-rounded"
+        >
+          <div
+            class="MuiCardContent-root makeStyles-row-7"
+          >
+            <div
+              class="makeStyles-content-8"
+            >
+              <p
+                class="MuiTypography-root MuiTypography-body1"
+              >
+                name
+              </p>
+              <p
+                class="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextSecondary"
+              >
+                Ch.-B. 12345
+              </p>
+            </div>
+            <p
+              class="MuiTypography-root makeStyles-trailer-9 MuiTypography-body1"
+            >
+              200 ml
+            </p>
+          </div>
+        </div>
+        <p
+          class="MuiTypography-root MuiTypography-body1"
+        >
+          comments
+        </p>
+      </div>
+      <div
+        class="makeStyles-trailer-2"
+      >
+        <p
+          class="MuiTypography-root MuiTypography-body1"
+        >
+          01:15
+        </p>
+        <p
+          class="MuiTypography-root MuiTypography-body1"
+        >
+          75 kg
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;

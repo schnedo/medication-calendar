@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MedicationCard should render correctly 1`] = `
+<div>
+  <div
+    class="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
+  >
+    <div
+      class="MuiCardContent-root makeStyles-row-1"
+    >
+      <div
+        class="makeStyles-content-2"
+      >
+        <p
+          class="MuiTypography-root MuiTypography-body1"
+        >
+          medicament name
+        </p>
+        <p
+          class="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextSecondary"
+        >
+          Ch.-B. 12345
+        </p>
+      </div>
+      <p
+        class="MuiTypography-root makeStyles-trailer-3 MuiTypography-body1"
+      >
+        200 ml
+      </p>
+    </div>
+  </div>
+</div>
+`;
