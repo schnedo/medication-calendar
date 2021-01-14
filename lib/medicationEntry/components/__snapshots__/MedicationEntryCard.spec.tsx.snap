@@ -16,32 +16,8 @@ exports[`MedicationEntryCard should render correctly 1`] = `
       <div
         class="makeStyles-medicationsList-5 makeStyles-rowItem-4"
       >
-        <div
-          class="MuiPaper-root MuiCard-root makeStyles-medicationsListItem-6 MuiPaper-elevation1 MuiPaper-rounded"
-        >
-          <div
-            class="MuiCardContent-root makeStyles-row-7"
-          >
-            <div
-              class="makeStyles-content-8"
-            >
-              <p
-                class="MuiTypography-root MuiTypography-body1"
-              >
-                name
-              </p>
-              <p
-                class="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextSecondary"
-              >
-                Ch.-B. 12345
-              </p>
-            </div>
-            <p
-              class="MuiTypography-root makeStyles-trailer-9 MuiTypography-body1"
-            >
-              200 ml
-            </p>
-          </div>
+        <div>
+          mocked
         </div>
         <p
           class="MuiTypography-root MuiTypography-body1"

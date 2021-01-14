@@ -1,6 +1,6 @@
+import React from "react";
 import { render } from "@testing-library/react";
 import MedicationEntryCard from "./MedicationEntryCard";
-import { mockAll } from "@userlike/joke";
 import {
   BatchNumber,
   Dose,
@@ -11,8 +11,10 @@ import {
 } from "../model";
 import { BodyMass } from "../../contact";
 
-mockAll(import("../components"), () => ({
-  MedicationCard: jest.fn().mockReturnValue(<div>mocked</div>),
+jest.mock("../components", () => ({
+  MedicationCard() {
+    return <div>mocked</div>;
+  },
 }));
 
 describe("MedicationEntryCard", () => {
