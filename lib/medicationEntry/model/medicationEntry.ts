@@ -1,6 +1,6 @@
 import Medication from "./medication";
 import { BodyMass } from "../../contact/model";
-import Duration from "./Duration";
+import Duration from "./duration";
 import { v4 } from "uuid";
 
 export default class MedicationEntry {
