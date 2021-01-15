@@ -1,7 +1,5 @@
-export default class Contact {
-  constructor(
-    readonly fullName: string,
-    readonly address: string,
-    readonly phoneNumber: string,
-  ) {}
+export default interface Contact {
+  readonly fullName: string;
+  readonly address: string;
+  readonly phoneNumber: string;
 }

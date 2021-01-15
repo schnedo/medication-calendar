@@ -1,6 +1,6 @@
-import { Duration as DateFnsDuration } from "date-fns";
+export type { Duration as default } from "date-fns";
 
-function format(number: number | undefined) {
+function formatPart(number: number | undefined) {
   if (number === undefined) {
     return "00";
   }
@@ -8,10 +8,6 @@ function format(number: number | undefined) {
   return raw.length === 1 ? `0${raw}` : raw;
 }
 
-export default class Duration {
-  constructor(readonly duration: DateFnsDuration) {}
-
-  toString(): string {
-    return `${format(this.duration.hours)}:${format(this.duration.minutes)}`;
-  }
+export function format(duration: Duration): string {
+  return `${formatPart(duration.hours)}:${formatPart(duration.minutes)}`;
 }

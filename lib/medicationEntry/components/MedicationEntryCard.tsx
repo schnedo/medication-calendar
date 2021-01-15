@@ -1,8 +1,9 @@
 import { ReactElement } from "react";
 import { Card, CardContent, makeStyles, Typography } from "@material-ui/core";
 import { MedicationCard } from "../components";
-import { MedicationEntry } from "../model";
+import { formatDuration, MedicationEntry } from "../model";
 import { format } from "date-fns";
+import { formatBodyMass } from "../../contact";
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -37,7 +38,7 @@ export interface MedicationEntryCardProps {
 }
 
 export default function MedicationEntryCard({
-  medicationEntry,
+  medicationEntry: { date, medications, comments, duration, bodyMass },
 }: MedicationEntryCardProps): ReactElement {
   const {
     medicationsListItem,
@@ -50,22 +51,20 @@ export default function MedicationEntryCard({
   return (
     <Card>
       <CardContent className={row}>
-        <Typography className={header}>
-          {format(medicationEntry.date, "EEEEEE dd")}
-        </Typography>
+        <Typography className={header}>{format(date, "EEEEEE dd")}</Typography>
         <div className={`${medicationsList} ${rowItem}`}>
-          {medicationEntry.medications.map((medication) => (
+          {medications.map((medication) => (
             <MedicationCard
               medication={medication}
               className={medicationsListItem}
               key={medication.id}
             />
           ))}
-          <Typography>{medicationEntry.comments}</Typography>
+          <Typography>{comments}</Typography>
         </div>
         <div className={trailer}>
-          <Typography>{medicationEntry.duration.toString()}</Typography>
-          <Typography>{medicationEntry.bodyMass.toString()}</Typography>
+          <Typography>{formatDuration(duration)}</Typography>
+          <Typography>{formatBodyMass(bodyMass)}</Typography>
         </div>
       </CardContent>
     </Card>
