@@ -1,7 +1,9 @@
-export default class Dose {
-  static readonly unit = "ml";
+export default interface Dose {
+  readonly amount: number;
+}
 
-  constructor(readonly amount: number) {}
+const unit = "ml";
 
-  toString = (): string => `${this.amount} ${Dose.unit}`;
+export function format(dose: Dose): string {
+  return `${dose.amount} ${unit}`;
 }

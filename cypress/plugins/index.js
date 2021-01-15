@@ -19,7 +19,6 @@
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
-  require("cypress-react-unit-test/plugins/next")(on, config);
   require("cypress-plugin-snapshots/plugin").initPlugin(on, config);
   return config;
 };

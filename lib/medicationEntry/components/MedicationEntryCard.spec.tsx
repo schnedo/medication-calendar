@@ -1,32 +1,46 @@
-import { mount } from "cypress-react-unit-test";
+import React from "react";
+import { render } from "@testing-library/react";
 import MedicationEntryCard from "./MedicationEntryCard";
-import {
-  BatchNumber,
-  Dose,
-  Duration,
-  Medicament,
-  Medication,
-  MedicationEntry,
-} from "../model";
-import { BodyMass } from "../../contact";
+import { MedicationEntry } from "../model";
 
-const medicationEntry = new MedicationEntry(
-  new Date(2021, 1),
-  [
-    new Medication(
-      new Dose(200),
-      new Medicament("medicament_name", new BatchNumber(12345)),
-    ),
-  ],
-  new Duration({}),
-  "",
-  new BodyMass(70),
-);
+jest.mock("../components", () => ({
+  MedicationCard() {
+    return <div>mocked</div>;
+  },
+}));
 
 describe("MedicationEntryCard", () => {
-  it("should match image snapshot", () => {
-    mount(<MedicationEntryCard medicationEntry={medicationEntry} />);
+  it("should render correctly", async () => {
+    expect.hasAssertions();
 
-    cy.get("#cypress-root").toMatchImageSnapshot();
+    const medicationEntry: MedicationEntry = {
+      bodyMass: {
+        amount: 75,
+      },
+      comments: "comments",
+      date: new Date(2020, 1, 11),
+      duration: { minutes: 15, hours: 1 },
+      id: "1",
+      medications: [
+        {
+          id: "2",
+          dose: {
+            amount: 200,
+          },
+          medicament: {
+            name: "name",
+            batchNumber: {
+              number: 12345,
+            },
+          },
+        },
+      ],
+    };
+
+    const { container } = render(
+      <MedicationEntryCard medicationEntry={medicationEntry} />,
+    );
+
+    expect(container).toMatchSnapshot();
   });
 });

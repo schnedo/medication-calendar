@@ -1,6 +1,8 @@
 import Dose from "./dose";
 import Medicament from "./medicament";
 
-export default class Medication {
-  constructor(readonly dose: Dose, readonly medicament: Medicament) {}
+export default interface Medication {
+  readonly id: string;
+  readonly dose: Dose;
+  readonly medicament: Medicament;
 }

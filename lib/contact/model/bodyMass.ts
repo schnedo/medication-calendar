@@ -1,7 +1,9 @@
-export default class BodyMass {
-  static readonly unit = "kg";
+export default interface BodyMass {
+  readonly amount: number;
+}
 
-  constructor(readonly amount: number) {}
+const unit = "kg";
 
-  toString = (): string => `${this.amount} ${BodyMass.unit}`;
+export function format(bodyMass: BodyMass): string {
+  return `${bodyMass.amount} ${unit}`;
 }

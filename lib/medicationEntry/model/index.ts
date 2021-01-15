@@ -1,8 +1,9 @@
-export { default as BatchNumber } from "./batchNumber";
-export { default as Dose } from "./dose";
-export { default as Duration } from "./Duration";
-export { default as Medicament } from "./medicament";
-export { default as Medication } from "./medication";
-export { default as MedicationEntry } from "./medicationEntry";
-
-export * as Repository from "./repository";
+export type { default as BatchNumber } from "./batchNumber";
+export { format as formatBatchNumber } from "./batchNumber";
+export type { default as Dose } from "./dose";
+export { format as formatDose } from "./dose";
+export type { default as Duration } from "./duration";
+export { format as formatDuration } from "./duration";
+export type { default as Medicament } from "./medicament";
+export type { default as Medication } from "./medication";
+export type { default as MedicationEntry } from "./medicationEntry";

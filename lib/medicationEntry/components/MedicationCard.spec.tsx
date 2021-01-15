@@ -1,15 +1,26 @@
+import { render } from "@testing-library/react";
 import MedicationCard from "./MedicationCard";
-import { mount } from "cypress-react-unit-test";
-import { BatchNumber, Dose, Medicament, Medication } from "../model";
-
-const medication = new Medication(
-  new Dose(200),
-  new Medicament("medicament_name", new BatchNumber(12345)),
-);
+import { Medication } from "../model";
 
 describe("MedicationCard", () => {
-  it("should match image snapshot", () => {
-    mount(<MedicationCard medication={medication} />);
-    cy.get("#cypress-root").toMatchImageSnapshot();
+  it("should render correctly", async () => {
+    expect.hasAssertions();
+
+    const medication: Medication = {
+      dose: {
+        amount: 200,
+      },
+      id: "1",
+      medicament: {
+        name: "medicament name",
+        batchNumber: {
+          number: 12345,
+        },
+      },
+    };
+
+    const { container } = render(<MedicationCard medication={medication} />);
+
+    expect(container).toMatchSnapshot();
   });
 });
