@@ -7,7 +7,11 @@ import {
   useState,
 } from "react";
 import { MedicationEntry } from "../model";
-import { getAll, remove, save } from "../model/repository";
+import { Repository } from "../../storage";
+
+const repository = new Repository<MedicationEntry>({
+  storeName: "medicationEntries",
+});
 
 export interface MedicationEntriesContext {
   entries: MedicationEntry[] | null;
@@ -17,8 +21,8 @@ export interface MedicationEntriesContext {
 
 const defaultContext: MedicationEntriesContext = {
   entries: null,
-  saveEntry: save,
-  deleteEntry: remove,
+  saveEntry: (entry) => repository.save(entry),
+  deleteEntry: (entry) => repository.remove(entry),
 };
 
 const medicationEntriesContext = createContext(defaultContext);
@@ -36,7 +40,7 @@ export default function MedicationEntriesProvider({
 }: MedicationEntriesProviderProps): ReactElement {
   const [value, setValue] = useState<MedicationEntriesContext>(defaultContext);
   useEffect(() => {
-    getAll().then((entries) => {
+    repository.getAll().then((entries) => {
       setValue((old) => ({ ...old, entries }));
     });
   }, []);

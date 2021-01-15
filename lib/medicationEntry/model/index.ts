@@ -7,5 +7,3 @@ export { format as formatDuration } from "./duration";
 export type { default as Medicament } from "./medicament";
 export type { default as Medication } from "./medication";
 export type { default as MedicationEntry } from "./medicationEntry";
-
-export * as Repository from "./repository";
