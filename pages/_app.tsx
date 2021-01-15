@@ -1,6 +1,8 @@
 import { AppProps } from "next/app";
 import { ReactElement } from "react";
 import Head from "next/head";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 
 function App({ Component, pageProps }: AppProps): ReactElement {
   return (
@@ -12,7 +14,9 @@ function App({ Component, pageProps }: AppProps): ReactElement {
           content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
         />
       </Head>
-      <Component {...pageProps} />
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <Component {...pageProps} />
+      </MuiPickersUtilsProvider>
     </>
   );
 }

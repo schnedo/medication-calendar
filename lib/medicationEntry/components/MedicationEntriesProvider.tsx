@@ -7,22 +7,25 @@ import {
   useState,
 } from "react";
 import { MedicationEntry } from "../model";
-import { Repository } from "../../storage";
+import { Entity, Repository } from "../../storage";
 
 const repository = new Repository<MedicationEntry>({
   storeName: "medicationEntries",
 });
 
 export interface MedicationEntriesContext {
-  entries: MedicationEntry[] | null;
+  entries: (MedicationEntry & Entity)[] | null;
   saveEntry: (entry: MedicationEntry) => Promise<void>;
   deleteEntry: (entry: MedicationEntry) => Promise<void>;
 }
 
+const notInitialized = () =>
+  Promise.reject(new Error("MedicationEntriesProvider not initialized yet"));
+
 const defaultContext: MedicationEntriesContext = {
   entries: null,
-  saveEntry: (entry) => repository.save(entry),
-  deleteEntry: (entry) => repository.remove(entry),
+  saveEntry: notInitialized,
+  deleteEntry: notInitialized,
 };
 
 const medicationEntriesContext = createContext(defaultContext);
@@ -41,7 +44,23 @@ export default function MedicationEntriesProvider({
   const [value, setValue] = useState<MedicationEntriesContext>(defaultContext);
   useEffect(() => {
     repository.getAll().then((entries) => {
-      setValue((old) => ({ ...old, entries }));
+      setValue({
+        entries,
+        saveEntry: async (entry) => {
+          const withId = await repository.save(entry);
+          setValue((old) => ({
+            ...old,
+            entries: [...(old.entries ?? []), withId],
+          }));
+        },
+        deleteEntry: async (entry) => {
+          await repository.remove(entry);
+          setValue((old) => ({
+            ...old,
+            entries: old.entries?.filter(({ id }) => id !== entry.id) ?? [],
+          }));
+        },
+      });
     });
   }, []);
   return (
