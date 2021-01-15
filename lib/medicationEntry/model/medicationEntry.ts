@@ -1,13 +1,12 @@
 import Medication from "./medication";
 import { BodyMass } from "../../contact/model";
-import Duration from "./Duration";
+import Duration from "./duration";
 
-export default class MedicationEntry {
-  constructor(
-    readonly date: Date,
-    readonly medications: Medication[],
-    readonly duration: Duration,
-    readonly comments: string,
-    readonly bodyMass: BodyMass,
-  ) {}
+export default interface MedicationEntry {
+  readonly id: string;
+  readonly date: Date;
+  readonly medications: Medication[];
+  readonly duration: Duration;
+  readonly comments: string;
+  readonly bodyMass: BodyMass;
 }

@@ -1,7 +1,8 @@
-export default class BatchNumber {
-  static readonly prefix = "Ch.-B.";
+export default interface BatchNumber {
+  readonly number: number;
+}
 
-  constructor(readonly number: number) {}
-
-  toString = (): string => `${BatchNumber.prefix} ${this.number}`;
+const prefix = "Ch.-B.";
+export function format(batchNumber: BatchNumber): string {
+  return `${prefix} ${batchNumber.number}`;
 }

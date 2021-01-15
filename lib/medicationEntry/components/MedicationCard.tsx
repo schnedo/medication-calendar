@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 import { Card, CardContent, makeStyles, Typography } from "@material-ui/core";
-import { Medication } from "../model";
+import { formatBatchNumber, formatDose, Medication } from "../model";
 
 const useStyles = makeStyles((theme) => ({
   row: {
@@ -21,7 +21,10 @@ export interface MedicationCardProps {
 }
 
 export default function MedicationCard({
-  medication,
+  medication: {
+    medicament: { name, batchNumber },
+    dose,
+  },
   className,
 }: MedicationCardProps): ReactElement {
   const { row, content, trailer } = useStyles();
@@ -29,14 +32,12 @@ export default function MedicationCard({
     <Card className={className}>
       <CardContent className={row}>
         <div className={content}>
-          <Typography>{medication.medicament.name}</Typography>
+          <Typography>{name}</Typography>
           <Typography color="textSecondary">
-            {medication.medicament.batchNumber.toString()}
+            {formatBatchNumber(batchNumber)}
           </Typography>
         </div>
-        <Typography className={trailer}>
-          {medication.dose.toString()}
-        </Typography>
+        <Typography className={trailer}>{formatDose(dose)}</Typography>
       </CardContent>
     </Card>
   );
