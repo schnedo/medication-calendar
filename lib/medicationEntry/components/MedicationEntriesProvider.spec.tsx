@@ -28,7 +28,7 @@ mockRepository.getAll.mockResolvedValue(entries);
 // @ts-expect-error this actually is a mock
 mockRepository.save.mockImplementation(async (entry) => entry);
 
-describe("MedicationEntriesProvider", () => {
+describe.skip("MedicationEntriesProvider", () => {
   it("should load entries from repository when mounted", async () => {
     expect.hasAssertions();
 

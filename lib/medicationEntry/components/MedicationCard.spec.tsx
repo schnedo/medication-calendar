@@ -2,7 +2,7 @@ import { render } from "@testing-library/react";
 import MedicationCard from "./MedicationCard";
 import { Medication } from "../model";
 
-describe("MedicationCard", () => {
+describe.skip("MedicationCard", () => {
   it("should render correctly", async () => {
     expect.hasAssertions();
 
