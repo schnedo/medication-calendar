@@ -9,7 +9,7 @@ const { default: AddMedicationEntryDialog } = mock(
 );
 const { useMedicationEntries } = mock(import("./MedicationEntriesProvider"));
 
-describe.skip("AddMedicationEntryButton", () => {
+describe("AddMedicationEntryButton", () => {
   beforeEach(() => {
     AddMedicationEntryDialog.mockReturnValue(
       <div>mocked AddMedicationEntryDialog</div>,

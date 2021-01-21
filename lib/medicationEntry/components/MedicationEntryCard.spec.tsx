@@ -9,7 +9,7 @@ jest.mock("../components", () => ({
   },
 }));
 
-describe.skip("MedicationEntryCard", () => {
+describe("MedicationEntryCard", () => {
   it("should render correctly", async () => {
     expect.hasAssertions();
 

@@ -6,7 +6,7 @@ import { mock } from "@userlike/joke";
 
 const { v4 } = mock(import("uuid"));
 
-describe.skip("AddMedicationDialog", () => {
+describe("AddMedicationDialog", () => {
   beforeEach(() => {
     v4.mockReturnValue("uuid");
   });
