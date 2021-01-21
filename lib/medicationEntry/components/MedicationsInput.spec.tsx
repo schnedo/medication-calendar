@@ -35,7 +35,7 @@ const value: Medication[] = [
   },
 ];
 
-describe.skip("MedicationsInput", () => {
+describe("MedicationsInput", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     MedicationCard.mockReturnValue(<div>mocked MedicationCard</div>);
