@@ -84,20 +84,22 @@ describe("AddMedicationEntryDialog", () => {
     userEvent.click(getByTestId("medicationsInput"));
     userEvent.click(getByText("Speichern"));
 
+    console.log(document);
+
     await waitFor(() => {
       expect(onSubmit).toHaveBeenCalledTimes(1);
     });
-    // const expected: MedicationEntry = {
-    //   bodyMass: {
-    //     amount: 10,
-    //   },
-    //   comments: "comments",
-    //   date: new Date(2021, 1, 10),
-    //   duration: { minutes: 15, hours: 2 },
-    //   id: "",
-    //   medications,
-    // };
-    // expect(onSubmit).toHaveBeenLastCalledWith(expected);
+    const expected: MedicationEntry = {
+      bodyMass: {
+        amount: 10,
+      },
+      comments: "comments",
+      date: new Date(2021, 1, 10),
+      duration: { minutes: 15, hours: 2 },
+      id: "",
+      medications,
+    };
+    expect(onSubmit).toHaveBeenLastCalledWith(expected);
   });
 
   it("should call onAbort when aborting", async () => {
