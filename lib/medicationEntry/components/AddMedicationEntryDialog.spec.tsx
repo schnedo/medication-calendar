@@ -84,9 +84,9 @@ describe("AddMedicationEntryDialog", () => {
     userEvent.click(getByTestId("medicationsInput"));
     userEvent.click(getByText("Speichern"));
 
-    // await waitFor(() => {
-    //   expect(onSubmit).toHaveBeenCalledTimes(1);
-    // });
+    await waitFor(() => {
+      expect(onSubmit).toHaveBeenCalledTimes(1);
+    });
     // const expected: MedicationEntry = {
     //   bodyMass: {
     //     amount: 10,
