@@ -29,7 +29,7 @@ describe("AddMedicationEntryDialog", () => {
     expect(container).toMatchSnapshot();
   });
 
-  it("should call onSubmit when submitting", async () => {
+  it.skip("should call onSubmit when submitting", async () => {
     expect.hasAssertions();
 
     const onSubmit = jest.fn();
@@ -100,7 +100,7 @@ describe("AddMedicationEntryDialog", () => {
     expect(onSubmit).toHaveBeenLastCalledWith(expected);
   });
 
-  it("should call onAbort when aborting", async () => {
+  it.skip("should call onAbort when aborting", async () => {
     expect.hasAssertions();
 
     const onAbort = jest.fn();
