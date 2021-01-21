@@ -72,18 +72,18 @@ describe("AddMedicationEntryDialog", () => {
       </MuiPickersUtilsProvider>,
     );
 
-    // await userEvent.type(
-    //   getByLabelText("Körpergewicht"),
-    //   "{backspace}{backspace}10",
-    // );
-    // userEvent.click(getByLabelText("Datum"));
-    // userEvent.click(getByRole("button", { name: "10" }));
-    // userEvent.click(getByRole("button", { name: "OK" }));
-    // userEvent.click(getByTestId("durationInput"));
-    // await userEvent.type(getByLabelText("Kommentare"), "comments");
-    // userEvent.click(getByTestId("medicationsInput"));
-    // userEvent.click(getByText("Speichern"));
-    //
+    await userEvent.type(
+      getByLabelText("Körpergewicht"),
+      "{backspace}{backspace}10",
+    );
+    userEvent.click(getByLabelText("Datum"));
+    userEvent.click(getByRole("button", { name: "10" }));
+    userEvent.click(getByRole("button", { name: "OK" }));
+    userEvent.click(getByTestId("durationInput"));
+    await userEvent.type(getByLabelText("Kommentare"), "comments");
+    userEvent.click(getByTestId("medicationsInput"));
+    userEvent.click(getByText("Speichern"));
+
     // await waitFor(() => {
     //   expect(onSubmit).toHaveBeenCalledTimes(1);
     // });
