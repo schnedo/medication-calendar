@@ -1,4 +1,4 @@
-import { act, fireEvent, render, waitFor } from "@testing-library/react";
+import { act, fireEvent, render, wait, waitFor } from "@testing-library/react";
 import AddMedicationEntryDialog from "./AddMedicationEntryDialog";
 import { mock } from "@userlike/joke";
 import userEvent from "@testing-library/user-event";
@@ -83,10 +83,15 @@ describe("AddMedicationEntryDialog", () => {
     await userEvent.type(getByLabelText("Kommentare"), "comments");
     userEvent.click(getByTestId("medicationsInput"));
     act(() => {
-      fireEvent(getByText("Speichern"), new MouseEvent("click"));
+      fireEvent(
+        getByText("Speichern"),
+        new MouseEvent("click", {
+          bubbles: true,
+          cancelable: true,
+        }),
+      );
     });
-
-    await waitFor(() => {
+    await wait(() => {
       expect(onSubmit).toHaveBeenCalledTimes(1);
     });
 
