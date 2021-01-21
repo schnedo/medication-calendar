@@ -66,12 +66,12 @@ describe("AddMedicationEntryDialog", () => {
       </div>
     ));
 
-    // const { getByRole, getByLabelText, getByTestId, getByText } = render(
-    //   <MuiPickersUtilsProvider utils={DateFnsUtils}>
-    //     <AddMedicationEntryDialog open={true} onSubmit={onSubmit} />
-    //   </MuiPickersUtilsProvider>,
-    // );
-    //
+    const { getByRole, getByLabelText, getByTestId, getByText } = render(
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <AddMedicationEntryDialog open={true} onSubmit={onSubmit} />
+      </MuiPickersUtilsProvider>,
+    );
+
     // await userEvent.type(
     //   getByLabelText("Körpergewicht"),
     //   "{backspace}{backspace}10",
