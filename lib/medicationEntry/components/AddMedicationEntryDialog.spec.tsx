@@ -9,7 +9,7 @@ import DateFnsUtils from "@date-io/date-fns";
 const { default: DurationInput } = mock(import("./DurationInput"));
 const { default: MedicationsInput } = mock(import("./MedicationsInput"));
 
-describe.skip("AddMedicationEntryDialog", () => {
+describe("AddMedicationEntryDialog", () => {
   beforeEach(() => {
     DurationInput.mockReturnValue(<div>mocked Duration Input</div>);
     MedicationsInput.mockReturnValue(<div>mocked MedicationsInput</div>);
