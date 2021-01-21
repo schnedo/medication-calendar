@@ -37,35 +37,35 @@ describe("AddMedicationEntryDialog", () => {
     jest.setSystemTime(new Date(2021, 1, 1));
 
     const duration: Duration = { minutes: 15, hours: 2 };
-    // DurationInput.mockImplementation(({ onChange }) => (
-    //   <div data-testid={"durationInput"} onClick={() => onChange(duration)}>
-    //     mocked DurationInput
-    //   </div>
-    // ));
-    //
-    // const medications: Medication[] = [
-    //   {
-    //     id: "1",
-    //     dose: {
-    //       amount: 200,
-    //     },
-    //     medicament: {
-    //       name: "name",
-    //       batchNumber: {
-    //         number: 12345,
-    //       },
-    //     },
-    //   },
-    // ];
-    // MedicationsInput.mockImplementation(({ onChange }) => (
-    //   <div
-    //     data-testid={"medicationsInput"}
-    //     onClick={() => onChange && onChange(medications)}
-    //   >
-    //     mocked MedicationsInput
-    //   </div>
-    // ));
-    //
+    DurationInput.mockImplementation(({ onChange }) => (
+      <div data-testid={"durationInput"} onClick={() => onChange(duration)}>
+        mocked DurationInput
+      </div>
+    ));
+
+    const medications: Medication[] = [
+      {
+        id: "1",
+        dose: {
+          amount: 200,
+        },
+        medicament: {
+          name: "name",
+          batchNumber: {
+            number: 12345,
+          },
+        },
+      },
+    ];
+    MedicationsInput.mockImplementation(({ onChange }) => (
+      <div
+        data-testid={"medicationsInput"}
+        onClick={() => onChange && onChange(medications)}
+      >
+        mocked MedicationsInput
+      </div>
+    ));
+
     // const { getByRole, getByLabelText, getByTestId, getByText } = render(
     //   <MuiPickersUtilsProvider utils={DateFnsUtils}>
     //     <AddMedicationEntryDialog open={true} onSubmit={onSubmit} />
