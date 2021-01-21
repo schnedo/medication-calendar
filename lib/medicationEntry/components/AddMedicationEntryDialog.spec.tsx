@@ -100,7 +100,7 @@ describe("AddMedicationEntryDialog", () => {
     expect(onSubmit).toHaveBeenLastCalledWith(expected);
   });
 
-  it.skip("should call onAbort when aborting", async () => {
+  it("should call onAbort when aborting", async () => {
     expect.hasAssertions();
 
     const onAbort = jest.fn();
