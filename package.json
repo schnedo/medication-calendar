@@ -64,7 +64,6 @@
   "jest": {
     "clearMocks": true,
     "timers": "modern",
-    "testEnvironment": "jsdom",
     "setupFilesAfterEnv": [
       "<rootDir>/jest-setup.ts"
     ]
