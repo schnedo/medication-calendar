@@ -1,4 +1,4 @@
-import { render, waitFor } from "@testing-library/react";
+import { render, wait, waitFor } from "@testing-library/react";
 import AddMedicationEntryDialog from "./AddMedicationEntryDialog";
 import { mock } from "@userlike/joke";
 import userEvent from "@testing-library/user-event";
@@ -84,11 +84,12 @@ describe("AddMedicationEntryDialog", () => {
     userEvent.click(getByTestId("medicationsInput"));
     userEvent.click(getByText("Speichern"));
 
-    console.log(document);
+    // waitFor unfortunately throws error in pipeline: Cannot read property 'createEvent' of null
+    // await waitFor(() => {
+    //   expect(onSubmit).toHaveBeenCalledTimes(1);
+    // });
+    await wait();
 
-    await waitFor(() => {
-      expect(onSubmit).toHaveBeenCalledTimes(1);
-    });
     const expected: MedicationEntry = {
       bodyMass: {
         amount: 10,
