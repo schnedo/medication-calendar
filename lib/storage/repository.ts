@@ -7,6 +7,10 @@ export interface Entity {
   id: string;
 }
 
+function addId<T extends Record<string, unknown>>(item: T): T & Entity {
+  return item.id ? (item as T & Entity) : { ...item, id: v4() };
+}
+
 export interface RepositoryConfig {
   storeName: string;
 }
@@ -25,11 +29,10 @@ export default class Repository<T extends Partial<Entity>> {
     await this.#store.removeItem(item.id);
   }
 
-  async save(item: T): Promise<void> {
-    if (!item.id) {
-      item.id = v4();
-    }
-    await this.#store.setItem(item.id, item);
+  async save(item: T): Promise<T & Entity> {
+    const withId = addId(item);
+    await this.#store.setItem(withId.id, withId);
+    return withId;
   }
 
   async getAll(): Promise<(T & Entity)[]> {
