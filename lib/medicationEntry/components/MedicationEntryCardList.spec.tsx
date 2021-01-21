@@ -17,7 +17,7 @@ function getMockContext(
   };
 }
 
-describe.skip("MedicationEntryCardList", () => {
+describe("MedicationEntryCardList", () => {
   beforeAll(() => {
     MedicationEntryCard.mockReturnValue(<div>mocked MedicationEntryCard</div>);
   });
