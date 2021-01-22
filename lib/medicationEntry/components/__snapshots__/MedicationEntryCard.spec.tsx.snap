@@ -2,44 +2,50 @@
 
 exports[`MedicationEntryCard should render correctly 1`] = `
 <div>
-  <div
-    class="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
+  <button
+    class="MuiButtonBase-root makeStyles-container-1"
+    tabindex="0"
+    type="button"
   >
     <div
-      class="MuiCardContent-root makeStyles-row-3"
+      class="MuiPaper-root MuiCard-root makeStyles-container-1 MuiPaper-elevation1 MuiPaper-rounded"
     >
-      <p
-        class="MuiTypography-root makeStyles-header-1 MuiTypography-body1"
-      >
-        Tu 11
-      </p>
       <div
-        class="makeStyles-medicationsList-5 makeStyles-rowItem-4"
+        class="MuiCardContent-root makeStyles-row-4"
       >
-        <div>
-          mocked
+        <p
+          class="MuiTypography-root makeStyles-header-2 MuiTypography-body1"
+        >
+          Tu 11
+        </p>
+        <div
+          class="makeStyles-medicationsList-6 makeStyles-rowItem-5"
+        >
+          <div>
+            mocked
+          </div>
+          <p
+            class="MuiTypography-root MuiTypography-body1"
+          >
+            comments
+          </p>
         </div>
-        <p
-          class="MuiTypography-root MuiTypography-body1"
+        <div
+          class="makeStyles-trailer-3"
         >
-          comments
-        </p>
-      </div>
-      <div
-        class="makeStyles-trailer-2"
-      >
-        <p
-          class="MuiTypography-root MuiTypography-body1"
-        >
-          01:15
-        </p>
-        <p
-          class="MuiTypography-root MuiTypography-body1"
-        >
-          75 kg
-        </p>
+          <p
+            class="MuiTypography-root MuiTypography-body1"
+          >
+            01:15
+          </p>
+          <p
+            class="MuiTypography-root MuiTypography-body1"
+          >
+            75 kg
+          </p>
+        </div>
       </div>
     </div>
-  </div>
+  </button>
 </div>
 `;
