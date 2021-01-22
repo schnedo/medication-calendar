@@ -4,9 +4,11 @@ import {
   DialogContentText,
   IconButton,
   makeStyles,
+  Menu,
+  MenuItem,
 } from "@material-ui/core";
-import { Add, MoreHoriz } from "@material-ui/icons";
-import AddMedicationDialog from "./AddMedicationDialog";
+import { Add } from "@material-ui/icons";
+import MedicationDialog from "./MedicationDialog";
 import { Medication } from "../model";
 import { MedicationCard } from "./index";
 
@@ -17,6 +19,14 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+interface MedicationsListSelection {
+  medication: Medication;
+  pointerPosition: {
+    clientX: number;
+    clientY: number;
+  };
+}
+
 export interface MedicationsInputProps {
   value: Medication[];
   onChange?: (medications: Medication[]) => void;
@@ -26,13 +36,43 @@ export default function MedicationsInput({
   value,
   onChange,
 }: MedicationsInputProps): ReactElement {
+  const [selection, setSelection] = useState<MedicationsListSelection | null>(
+    null,
+  );
+  const closeMenu = () => setSelection(null);
+
   const [open, setOpen] = useState(false);
-  const handleClick: PointerEventHandler<HTMLButtonElement> = () =>
-    setOpen(true);
-  const handleClose = () => setOpen(false);
-  const handleSubmit = async (medication: Medication) => {
-    onChange && onChange([...value, medication]);
+  const openDialog = () => setOpen(true);
+  const closeDialog = () => {
     setOpen(false);
+    closeMenu();
+  };
+
+  const handleAdd: PointerEventHandler<HTMLButtonElement> = () => {
+    closeMenu();
+    openDialog();
+  };
+  const handleDialogClose = () => closeDialog();
+  const handleSubmit = async (medication: Medication) => {
+    if (onChange) {
+      const index = value.findIndex(({ id }) => id === medication.id);
+      const newMedications =
+        index === -1
+          ? [...value, medication]
+          : [...value.slice(0, index), medication, ...value.slice(index + 1)];
+      onChange(newMedications);
+    }
+    closeDialog();
+  };
+
+  const handleEdit = () => openDialog();
+  const handleDelete = () => {
+    onChange &&
+      selection &&
+      onChange(
+        value.filter((medication) => medication != selection.medication),
+      );
+    closeMenu();
   };
 
   const { medicationsAddContainer } = useStyles();
@@ -40,18 +80,41 @@ export default function MedicationsInput({
     <Box>
       <DialogContentText>Einträge</DialogContentText>
       {value.map((medication) => (
-        <MedicationCard medication={medication} key={medication.id} />
+        <MedicationCard
+          medication={medication}
+          key={medication.id}
+          onClick={({ clientX, clientY }) =>
+            setSelection({ medication, pointerPosition: { clientX, clientY } })
+          }
+        />
       ))}
       <Box className={medicationsAddContainer}>
-        <MoreHoriz color={"disabled"} />
-        <IconButton onClick={handleClick}>
+        <div />
+        <IconButton onClick={handleAdd}>
           <Add />
         </IconButton>
       </Box>
-      <AddMedicationDialog
+      <Menu
+        open={!!selection}
+        onClose={closeMenu}
+        anchorReference={"anchorPosition"}
+        anchorPosition={
+          selection
+            ? {
+                top: selection.pointerPosition.clientY,
+                left: selection.pointerPosition.clientX,
+              }
+            : undefined
+        }
+      >
+        <MenuItem onClick={handleEdit}>Bearbeiten</MenuItem>
+        <MenuItem onClick={handleDelete}>Löschen</MenuItem>
+      </Menu>
+      <MedicationDialog
         open={open}
-        onClose={handleClose}
-        onAbort={handleClose}
+        medication={selection?.medication}
+        onClose={handleDialogClose}
+        onAbort={handleDialogClose}
         onSubmit={handleSubmit}
       />
     </Box>

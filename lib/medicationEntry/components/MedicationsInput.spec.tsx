@@ -4,10 +4,11 @@ import { render } from "@testing-library/react";
 import MedicationsInput from "./MedicationsInput";
 import { Medication } from "../model";
 import userEvent from "@testing-library/user-event";
-import { AddMedicationDialogProps } from "./AddMedicationDialog";
+import { MedicationDialogProps } from "./MedicationDialog";
+import { MedicationCardProps } from "./MedicationCard";
 
 const { default: MedicationCard } = mock(import("./MedicationCard"));
-const { default: AddMedicationDialog } = mock(import("./AddMedicationDialog"));
+const { default: MedicationDialog } = mock(import("./MedicationDialog"));
 
 const medication: Medication = {
   id: "2",
@@ -39,7 +40,7 @@ describe("MedicationsInput", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     MedicationCard.mockReturnValue(<div>mocked MedicationCard</div>);
-    AddMedicationDialog.mockReturnValue(<div>mocked AddMedicationDialog</div>);
+    MedicationDialog.mockReturnValue(<div>mocked AddMedicationDialog</div>);
   });
 
   it("should render correctly", async () => {
@@ -50,7 +51,7 @@ describe("MedicationsInput", () => {
     expect(container).toMatchSnapshot();
   });
 
-  it("should call open AddMedicationDialog when clicked", async () => {
+  it("should call open MedicationDialog when add is clicked", async () => {
     expect.hasAssertions();
 
     const { getByRole } = render(<MedicationsInput value={value} />);
@@ -59,24 +60,24 @@ describe("MedicationsInput", () => {
 
     userEvent.click(addButton);
 
-    expect(AddMedicationDialog).toHaveBeenLastCalledWith(
-      expect.objectContaining({ open: true }),
+    expect(MedicationDialog).toHaveBeenLastCalledWith(
+      expect.objectContaining({ open: true, medication: undefined }),
       {},
     );
   });
 
-  it("should call onChange handler when AddMedicationDialog submits", async () => {
+  it("should call onChange handler when MedicationDialog submits", async () => {
     expect.hasAssertions();
     const handleChange = jest.fn();
-    const mockDialog = ({ onSubmit }: AddMedicationDialogProps) => (
+    const mockDialog = ({ onSubmit }: MedicationDialogProps) => (
       <div
         data-testid={"testid"}
         onClick={() => onSubmit && onSubmit(medication)}
       >
-        mocked
+        mocked Dialog
       </div>
     );
-    AddMedicationDialog.mockImplementation(mockDialog);
+    MedicationDialog.mockImplementation(mockDialog);
 
     const { getByRole, getByTestId } = render(
       <MedicationsInput value={value} onChange={handleChange} />,
@@ -89,18 +90,18 @@ describe("MedicationsInput", () => {
     expect(handleChange).toHaveBeenLastCalledWith([...value, medication]);
   });
 
-  it("should close AddMedicationDialog when it submits", async () => {
+  it("should close MedicationDialog when it submits", async () => {
     expect.hasAssertions();
 
-    const mockDialog = ({ onSubmit }: AddMedicationDialogProps) => (
+    const mockDialog = ({ onSubmit }: MedicationDialogProps) => (
       <div
         data-testid={"testid"}
         onClick={() => onSubmit && onSubmit(medication)}
       >
-        mocked
+        mocked Dialog
       </div>
     );
-    AddMedicationDialog.mockImplementation(mockDialog);
+    MedicationDialog.mockImplementation(mockDialog);
 
     const { getByRole, getByTestId } = render(
       <MedicationsInput value={value} />,
@@ -108,21 +109,21 @@ describe("MedicationsInput", () => {
 
     userEvent.click(getByRole("button"));
     userEvent.click(getByTestId("testid"));
-    expect(AddMedicationDialog).toHaveBeenLastCalledWith(
+    expect(MedicationDialog).toHaveBeenLastCalledWith(
       expect.objectContaining({ open: false }),
       {},
     );
   });
 
-  it("should close AddMedicationDialog when it aborts", async () => {
+  it("should close MedicationDialog when it aborts", async () => {
     expect.hasAssertions();
 
-    const mockDialog = ({ onAbort }: AddMedicationDialogProps) => (
+    const mockDialog = ({ onAbort }: MedicationDialogProps) => (
       <div data-testid={"testid"} onClick={() => onAbort && onAbort()}>
-        mocked
+        mocked Dialog
       </div>
     );
-    AddMedicationDialog.mockImplementation(mockDialog);
+    MedicationDialog.mockImplementation(mockDialog);
 
     const { getByRole, getByTestId } = render(
       <MedicationsInput value={value} />,
@@ -130,7 +131,7 @@ describe("MedicationsInput", () => {
 
     userEvent.click(getByRole("button"));
     userEvent.click(getByTestId("testid"));
-    expect(AddMedicationDialog).toHaveBeenLastCalledWith(
+    expect(MedicationDialog).toHaveBeenLastCalledWith(
       expect.objectContaining({ open: false }),
       {},
     );
@@ -139,15 +140,15 @@ describe("MedicationsInput", () => {
   it("should set a close dialog when AddMedicationsInput onClose gets called", async () => {
     expect.hasAssertions();
 
-    const mockDialog = ({ onClose }: AddMedicationDialogProps) => (
+    const mockDialog = ({ onClose }: MedicationDialogProps) => (
       <div
         data-testid={"testid"}
         onClick={() => onClose && onClose({}, "backdropClick")}
       >
-        mocked
+        mocked Dialog
       </div>
     );
-    AddMedicationDialog.mockImplementation(mockDialog);
+    MedicationDialog.mockImplementation(mockDialog);
 
     const { getByRole, getByTestId } = render(
       <MedicationsInput value={value} />,
@@ -155,9 +156,40 @@ describe("MedicationsInput", () => {
 
     userEvent.click(getByRole("button"));
     userEvent.click(getByTestId("testid"));
-    expect(AddMedicationDialog).toHaveBeenLastCalledWith(
+    expect(MedicationDialog).toHaveBeenLastCalledWith(
       expect.objectContaining({ open: false }),
       {},
     );
+  });
+
+  it("should edit current entries when editing", async () => {
+    expect.hasAssertions();
+
+    const mockedDialog = ({ medication, onSubmit }: MedicationDialogProps) => (
+      <div
+        data-testid={"testDialog"}
+        onClick={() => onSubmit && medication && onSubmit(medication)}
+      >
+        mocked Dialog
+      </div>
+    );
+    MedicationDialog.mockImplementation(mockedDialog);
+    const mockedCard = ({ onClick }: MedicationCardProps) => (
+      <button data-testid={"testCard"} onClick={onClick}>
+        mocked Card
+      </button>
+    );
+    MedicationCard.mockImplementation(mockedCard);
+    const onChange = jest.fn();
+
+    const { getByTestId, getByRole } = render(
+      <MedicationsInput value={value} onChange={onChange} />,
+    );
+
+    userEvent.click(getByTestId("testCard"));
+    userEvent.click(getByRole("menuitem", { name: "Bearbeiten" }));
+    userEvent.click(getByTestId("testDialog"));
+
+    expect(onChange).toHaveBeenLastCalledWith(value);
   });
 });

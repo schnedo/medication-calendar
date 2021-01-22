@@ -1,5 +1,6 @@
 import { PointerEventHandler, ReactElement } from "react";
 import {
+  Box,
   ButtonBase,
   Card,
   CardContent,
@@ -34,11 +35,12 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-  },
-  medicationsListItem: {
-    flex: "1",
-    marginBottom: theme.spacing(1),
-    "&:last-child": 0,
+    "&>*": {
+      marginBottom: theme.spacing(1),
+      "&:last-child": {
+        marginBottom: 0,
+      },
+    },
   },
 }));
 
@@ -53,7 +55,6 @@ export default function MedicationEntryCard({
 }: MedicationEntryCardProps): ReactElement {
   const {
     container,
-    medicationsListItem,
     medicationsList,
     row,
     rowItem,
@@ -71,20 +72,16 @@ export default function MedicationEntryCard({
           <Typography className={header}>
             {format(date, "EEEEEE dd")}
           </Typography>
-          <div className={`${medicationsList} ${rowItem}`}>
+          <Box className={`${medicationsList} ${rowItem}`}>
             {medications.map((medication) => (
-              <MedicationCard
-                medication={medication}
-                className={medicationsListItem}
-                key={medication.id}
-              />
+              <MedicationCard medication={medication} key={medication.id} />
             ))}
             <Typography>{comments}</Typography>
-          </div>
-          <div className={trailer}>
+          </Box>
+          <Box className={trailer}>
             <Typography>{formatDuration(duration)}</Typography>
             <Typography>{formatBodyMass(bodyMass)}</Typography>
-          </div>
+          </Box>
         </CardContent>
       </Card>
     </ButtonBase>

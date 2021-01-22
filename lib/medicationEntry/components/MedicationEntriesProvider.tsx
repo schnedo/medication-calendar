@@ -47,17 +47,19 @@ export default function MedicationEntriesProvider({
       setValue({
         entries,
         saveEntry: async (entry) => {
-          const withId = await repository.save(entry);
+          await repository.save(entry);
+          const newEntries = await repository.getAll();
           setValue((old) => ({
             ...old,
-            entries: [...(old.entries ?? []), withId],
+            entries: newEntries,
           }));
         },
         deleteEntry: async (entry) => {
           await repository.remove(entry);
+          const newEntries = await repository.getAll();
           setValue((old) => ({
             ...old,
-            entries: old.entries?.filter(({ id }) => id !== entry.id) ?? [],
+            entries: newEntries,
           }));
         },
       });

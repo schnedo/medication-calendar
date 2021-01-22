@@ -26,7 +26,9 @@ exports[`MedicationEntryCardList should render loading animation when entries ar
 
 exports[`MedicationEntryCardList should render medication card list 1`] = `
 <div>
-  <div>
+  <div
+    class="MuiBox-root MuiBox-root-2 makeStyles-container-1"
+  >
     <div>
       mocked MedicationEntryCard
     </div>

@@ -4,7 +4,7 @@ import {
   SelectorMatcherOptions,
   waitFor,
 } from "@testing-library/react";
-import AddMedicationEntryDialog from "./AddMedicationEntryDialog";
+import MedicationEntryDialog from "./MedicationEntryDialog";
 import { mock } from "@userlike/joke";
 import userEvent from "@testing-library/user-event";
 import { Duration, Medication, MedicationEntry } from "../model";
@@ -41,7 +41,7 @@ function expectFieldsEqualEntry(
   );
 }
 
-describe("AddMedicationEntryDialog", () => {
+describe("MedicationEntryDialog", () => {
   beforeEach(() => {
     DurationInput.mockReturnValue(<div>mocked Duration Input</div>);
     MedicationsInput.mockReturnValue(<div>mocked MedicationsInput</div>);
@@ -54,7 +54,7 @@ describe("AddMedicationEntryDialog", () => {
 
     const { container } = render(
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <AddMedicationEntryDialog open={true} />
+        <MedicationEntryDialog open={true} />
       </MuiPickersUtilsProvider>,
     );
 
@@ -102,7 +102,7 @@ describe("AddMedicationEntryDialog", () => {
 
     const { getByRole, getByLabelText, getByTestId, getByText } = render(
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <AddMedicationEntryDialog open={true} onSubmit={onSubmit} />
+        <MedicationEntryDialog open={true} onSubmit={onSubmit} />
       </MuiPickersUtilsProvider>,
     );
 
@@ -144,7 +144,7 @@ describe("AddMedicationEntryDialog", () => {
 
     const { getByRole } = render(
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <AddMedicationEntryDialog open={true} onAbort={onAbort} />
+        <MedicationEntryDialog open={true} onAbort={onAbort} />
       </MuiPickersUtilsProvider>,
     );
 
@@ -181,10 +181,7 @@ describe("AddMedicationEntryDialog", () => {
 
     const { getByLabelText, rerender } = render(
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <AddMedicationEntryDialog
-          open={true}
-          medicationEntry={medicationEntry1}
-        />
+        <MedicationEntryDialog open={true} medicationEntry={medicationEntry1} />
       </MuiPickersUtilsProvider>,
     );
 
@@ -192,15 +189,12 @@ describe("AddMedicationEntryDialog", () => {
 
     rerender(
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <AddMedicationEntryDialog open={false} />
+        <MedicationEntryDialog open={false} />
       </MuiPickersUtilsProvider>,
     );
     rerender(
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <AddMedicationEntryDialog
-          open={true}
-          medicationEntry={medicationEntry2}
-        />
+        <MedicationEntryDialog open={true} medicationEntry={medicationEntry2} />
       </MuiPickersUtilsProvider>,
     );
 
@@ -247,7 +241,7 @@ describe("AddMedicationEntryDialog", () => {
 
     const { getByRole, getByLabelText, getByTestId, rerender } = render(
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <AddMedicationEntryDialog open={true} />
+        <MedicationEntryDialog open={true} />
       </MuiPickersUtilsProvider>,
     );
 
@@ -280,12 +274,12 @@ describe("AddMedicationEntryDialog", () => {
 
     rerender(
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <AddMedicationEntryDialog open={false} />
+        <MedicationEntryDialog open={false} />
       </MuiPickersUtilsProvider>,
     );
     rerender(
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <AddMedicationEntryDialog open={true} />
+        <MedicationEntryDialog open={true} />
       </MuiPickersUtilsProvider>,
     );
 

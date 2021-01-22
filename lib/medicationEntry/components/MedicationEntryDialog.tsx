@@ -1,4 +1,10 @@
-import { MouseEventHandler, ReactElement, useEffect, useState } from "react";
+import {
+  MouseEventHandler,
+  ReactElement,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import {
   Button,
   Dialog,
@@ -36,7 +42,7 @@ const defaultBodyMass = "60";
 const defaultComments = "";
 const defaultMedications: Medication[] = [];
 
-export interface AddMedicationEntryDialogProps {
+export interface MedicationEntryDialogProps {
   open: boolean;
   medicationEntry?: MedicationEntry;
   onClose?: ModalProps["onClose"];
@@ -44,13 +50,15 @@ export interface AddMedicationEntryDialogProps {
   onAbort?: () => void;
 }
 
-export default function AddMedicationEntryDialog({
+// eslint-disable-next-line sonarjs/cognitive-complexity
+export default function MedicationEntryDialog({
   open,
   medicationEntry,
   onClose,
   onSubmit,
   onAbort,
-}: AddMedicationEntryDialogProps): ReactElement {
+}: MedicationEntryDialogProps): ReactElement {
+  const idRef = useRef(medicationEntry?.id ?? "");
   const [date, setDate] = useState(medicationEntry?.date ?? defaultDate());
   const [duration, setDuration] = useState(
     medicationEntry?.duration ?? defaultDuration,
@@ -74,13 +82,14 @@ export default function AddMedicationEntryDialog({
       );
       setComments(medicationEntry?.comments ?? defaultComments);
       setMedications(medicationEntry?.medications ?? defaultMedications);
+      idRef.current = medicationEntry?.id ?? "";
     }
   }, [medicationEntry, open]);
 
   const handleSubmit: MouseEventHandler | undefined = onSubmit
     ? async () => {
         await onSubmit({
-          id: "",
+          id: idRef.current,
           date,
           duration,
           bodyMass: {

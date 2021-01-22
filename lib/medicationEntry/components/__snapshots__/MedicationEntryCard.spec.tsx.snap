@@ -19,7 +19,7 @@ exports[`MedicationEntryCard should render correctly 1`] = `
           Tu 11
         </p>
         <div
-          class="makeStyles-medicationsList-6 makeStyles-rowItem-5"
+          class="MuiBox-root MuiBox-root-7 makeStyles-medicationsList-6 makeStyles-rowItem-5"
         >
           <div>
             mocked
@@ -31,7 +31,7 @@ exports[`MedicationEntryCard should render correctly 1`] = `
           </p>
         </div>
         <div
-          class="makeStyles-trailer-3"
+          class="MuiBox-root MuiBox-root-8 makeStyles-trailer-3"
         >
           <p
             class="MuiTypography-root MuiTypography-body1"
