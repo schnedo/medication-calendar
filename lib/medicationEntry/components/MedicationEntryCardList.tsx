@@ -1,17 +1,55 @@
 import { ReactElement } from "react";
 import { MedicationEntryCard } from "./index";
-import { CircularProgress } from "@material-ui/core";
-import { useMedicationEntries } from "./MedicationEntriesProvider";
+import { Box, CircularProgress, makeStyles } from "@material-ui/core";
+import { MedicationEntry } from "../model";
 
-export default function MedicationEntryCardList(): ReactElement {
-  const { entries } = useMedicationEntries();
-  return entries === null ? (
+const useStyle = makeStyles((theme) => ({
+  container: {
+    "&>*": {
+      marginBottom: theme.spacing(1),
+      "&:last-child": {
+        marginBottom: 0,
+      },
+    },
+  },
+}));
+
+export interface MedicationEntryCardListSelection {
+  medicationEntry: MedicationEntry;
+  pointerPosition: {
+    clientX: number;
+    clientY: number;
+  };
+}
+
+export interface MedicationEntryCardListProps {
+  medicationEntries: MedicationEntry[] | null;
+  onSelect: (
+    medicationEntryCardListSelection: MedicationEntryCardListSelection,
+  ) => void;
+}
+
+export default function MedicationEntryCardList({
+  medicationEntries,
+  onSelect,
+}: MedicationEntryCardListProps): ReactElement {
+  const { container } = useStyle();
+  return medicationEntries === null ? (
     <CircularProgress />
   ) : (
-    <div>
-      {entries.map((entry) => (
-        <MedicationEntryCard key={entry.id} medicationEntry={entry} />
+    <Box className={container}>
+      {medicationEntries.map((entry) => (
+        <MedicationEntryCard
+          key={entry.id}
+          medicationEntry={entry}
+          onClick={({ clientX, clientY }) => {
+            onSelect({
+              medicationEntry: entry,
+              pointerPosition: { clientX, clientY },
+            });
+          }}
+        />
       ))}
-    </div>
+    </Box>
   );
 }

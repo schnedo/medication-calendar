@@ -6,6 +6,7 @@ import {
   ReactElement,
   SetStateAction,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import {
@@ -30,20 +31,27 @@ function checkValidity<T>(
   return valid;
 }
 
-export interface AddMedicationDialogProps {
+export interface MedicationDialogProps {
   open: boolean;
+  medication?: Medication;
   onClose?: ModalProps["onClose"];
   onSubmit?: (medication: Medication) => Promise<void>;
   onAbort?: () => void;
 }
 
-export default function AddMedicationDialog({
+// eslint-disable-next-line sonarjs/cognitive-complexity
+export default function MedicationDialog({
   open,
+  medication,
   onClose,
   onSubmit,
   onAbort,
-}: AddMedicationDialogProps): ReactElement {
-  const [doseAmount, setDoseAmount] = useState("");
+}: MedicationDialogProps): ReactElement {
+  const idRef = useRef(medication?.id ?? v4());
+
+  const [doseAmount, setDoseAmount] = useState(
+    medication?.dose.amount.toString() ?? "",
+  );
   const [doseValid, setDoseValid] = useState(true);
   const handleDoseChange: ChangeEventHandler<HTMLInputElement> = ({
     target: { value },
@@ -54,7 +62,7 @@ export default function AddMedicationDialog({
   const handleDoseFocus: FocusEventHandler<HTMLInputElement> = () =>
     setDoseValid(true);
 
-  const [name, setName] = useState("");
+  const [name, setName] = useState(medication?.medicament.name ?? "");
   const [nameValid, setNameValid] = useState(true);
   const handleNameChange: ChangeEventHandler<HTMLInputElement> = ({
     target: { value },
@@ -65,7 +73,9 @@ export default function AddMedicationDialog({
   const handleNameFocus: FocusEventHandler<HTMLInputElement> = () =>
     setNameValid(true);
 
-  const [batchNumber, setBatchNumber] = useState("");
+  const [batchNumber, setBatchNumber] = useState(
+    medication?.medicament.batchNumber.number.toString() ?? "",
+  );
   const [batchNumberValid, setBatchNumberValid] = useState(true);
   const handleBatchNumberChange: ChangeEventHandler<HTMLInputElement> = ({
     target: { value },
@@ -77,18 +87,20 @@ export default function AddMedicationDialog({
     setBatchNumberValid(true);
 
   useEffect(() => {
-    if (!open) {
+    if (open) {
       const resetState = () => {
-        setDoseAmount("");
+        setDoseAmount(medication?.dose.amount.toString() ?? "");
         setDoseValid(true);
-        setName("");
+        setName(medication?.medicament.name ?? "");
         setNameValid(true);
-        setBatchNumber("");
+        setBatchNumber(
+          medication?.medicament.batchNumber.number.toString() ?? "",
+        );
         setBatchNumberValid(true);
       };
       resetState();
     }
-  }, [open]);
+  }, [open, medication]);
 
   const handleClose: typeof onClose = (event, reason) => {
     onClose && onClose(event, reason);
@@ -109,7 +121,7 @@ export default function AddMedicationDialog({
         );
         if (doseValidity && nameValidity && batchNumberValidity) {
           await onSubmit({
-            id: v4(),
+            id: idRef.current,
             medicament: {
               name,
               batchNumber: {

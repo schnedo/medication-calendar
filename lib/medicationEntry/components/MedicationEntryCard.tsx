@@ -1,11 +1,21 @@
-import { ReactElement } from "react";
-import { Card, CardContent, makeStyles, Typography } from "@material-ui/core";
+import { PointerEventHandler, ReactElement } from "react";
+import {
+  Box,
+  ButtonBase,
+  Card,
+  CardContent,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
 import { MedicationCard } from "../components";
 import { formatDuration, MedicationEntry } from "../model";
 import { format } from "date-fns";
 import { formatBodyMass } from "../../contact";
 
 const useStyles = makeStyles((theme) => ({
+  container: {
+    width: "100%",
+  },
   header: {
     marginRight: theme.spacing(1),
   },
@@ -25,23 +35,26 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-  },
-  medicationsListItem: {
-    flex: "1",
-    marginBottom: theme.spacing(1),
-    "&:lastChild": 0,
+    "&>*": {
+      marginBottom: theme.spacing(1),
+      "&:last-child": {
+        marginBottom: 0,
+      },
+    },
   },
 }));
 
 export interface MedicationEntryCardProps {
   medicationEntry: MedicationEntry;
+  onClick?: PointerEventHandler<HTMLButtonElement>;
 }
 
 export default function MedicationEntryCard({
   medicationEntry: { date, medications, comments, duration, bodyMass },
+  onClick,
 }: MedicationEntryCardProps): ReactElement {
   const {
-    medicationsListItem,
+    container,
     medicationsList,
     row,
     rowItem,
@@ -49,24 +62,28 @@ export default function MedicationEntryCard({
     trailer,
   } = useStyles();
   return (
-    <Card>
-      <CardContent className={row}>
-        <Typography className={header}>{format(date, "EEEEEE dd")}</Typography>
-        <div className={`${medicationsList} ${rowItem}`}>
-          {medications.map((medication) => (
-            <MedicationCard
-              medication={medication}
-              className={medicationsListItem}
-              key={medication.id}
-            />
-          ))}
-          <Typography>{comments}</Typography>
-        </div>
-        <div className={trailer}>
-          <Typography>{formatDuration(duration)}</Typography>
-          <Typography>{formatBodyMass(bodyMass)}</Typography>
-        </div>
-      </CardContent>
-    </Card>
+    <ButtonBase
+      onClick={onClick}
+      className={container}
+      disableRipple={!onClick}
+    >
+      <Card className={container}>
+        <CardContent className={row}>
+          <Typography className={header}>
+            {format(date, "EEEEEE dd")}
+          </Typography>
+          <Box className={`${medicationsList} ${rowItem}`}>
+            {medications.map((medication) => (
+              <MedicationCard medication={medication} key={medication.id} />
+            ))}
+            <Typography>{comments}</Typography>
+          </Box>
+          <Box className={trailer}>
+            <Typography>{formatDuration(duration)}</Typography>
+            <Typography>{formatBodyMass(bodyMass)}</Typography>
+          </Box>
+        </CardContent>
+      </Card>
+    </ButtonBase>
   );
 }

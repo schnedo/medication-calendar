@@ -1,4 +1,7 @@
-export type { Duration as default } from "date-fns";
+export default interface Duration {
+  minutes: number;
+  hours: number;
+}
 
 function formatPart(number: number | undefined) {
   if (number === undefined) {
