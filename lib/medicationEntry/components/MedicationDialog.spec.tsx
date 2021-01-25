@@ -1,12 +1,12 @@
 import { render, waitFor } from "@testing-library/react";
-import AddMedicationDialog from "./AddMedicationDialog";
+import MedicationDialog from "./MedicationDialog";
 import userEvent from "@testing-library/user-event";
 import { Medication } from "../model";
 import { mock } from "@userlike/joke";
 
 const { v4 } = mock(import("uuid"));
 
-describe("AddMedicationDialog", () => {
+describe("MedicationDialog", () => {
   beforeEach(() => {
     v4.mockReturnValue("uuid");
   });
@@ -14,7 +14,7 @@ describe("AddMedicationDialog", () => {
   it("should render correctly", async () => {
     expect.hasAssertions();
 
-    const { container } = render(<AddMedicationDialog open={true} />);
+    const { container } = render(<MedicationDialog open={true} />);
 
     expect(container).toMatchSnapshot();
   });
@@ -24,7 +24,7 @@ describe("AddMedicationDialog", () => {
 
     const onAbort = jest.fn();
     const { getByText } = render(
-      <AddMedicationDialog open={true} onAbort={onAbort} />,
+      <MedicationDialog open={true} onAbort={onAbort} />,
     );
 
     userEvent.click(getByText("Abbrechen"));
@@ -36,7 +36,7 @@ describe("AddMedicationDialog", () => {
 
     const onSubmit = jest.fn();
     const { getByText, getByLabelText } = render(
-      <AddMedicationDialog open={true} onSubmit={onSubmit} />,
+      <MedicationDialog open={true} onSubmit={onSubmit} />,
     );
 
     await userEvent.type(getByLabelText("Dosis"), "200");
@@ -66,18 +66,74 @@ describe("AddMedicationDialog", () => {
     expect.hasAssertions();
 
     const { getByLabelText, rerender } = render(
-      <AddMedicationDialog open={true} />,
+      <MedicationDialog open={true} />,
     );
 
     await userEvent.type(getByLabelText("Dosis"), "123");
     await userEvent.type(getByLabelText("Name"), "name");
     await userEvent.type(getByLabelText("Chargenbezeichnung"), "12345");
 
-    rerender(<AddMedicationDialog open={false} />);
-    rerender(<AddMedicationDialog open={true} />);
+    rerender(<MedicationDialog open={false} />);
+    rerender(<MedicationDialog open={true} />);
 
     expect(getByLabelText("Dosis")).toHaveDisplayValue("");
     expect(getByLabelText("Name")).toHaveDisplayValue("");
     expect(getByLabelText("Chargenbezeichnung")).toHaveDisplayValue("");
+  });
+
+  it("should set fields from provided medication", async () => {
+    expect.hasAssertions();
+
+    const medication1: Medication = {
+      dose: {
+        amount: 200,
+      },
+      id: "1",
+      medicament: {
+        name: "name1",
+        batchNumber: {
+          number: 12345,
+        },
+      },
+    };
+    const medication2: Medication = {
+      dose: {
+        amount: 20,
+      },
+      id: "2",
+      medicament: {
+        name: "name2",
+        batchNumber: {
+          number: 54321,
+        },
+      },
+    };
+
+    const { rerender, getByLabelText } = render(
+      <MedicationDialog open={true} medication={medication1} />,
+    );
+
+    expect(getByLabelText("Dosis")).toHaveDisplayValue(
+      medication1.dose.amount.toString(),
+    );
+    expect(getByLabelText("Name")).toHaveDisplayValue(
+      medication1.medicament.name,
+    );
+    expect(getByLabelText("Chargenbezeichnung")).toHaveDisplayValue(
+      medication1.medicament.batchNumber.number.toString(),
+    );
+
+    rerender(<MedicationDialog open={false} />);
+    rerender(<MedicationDialog open={true} medication={medication2} />);
+
+    expect(getByLabelText("Dosis")).toHaveDisplayValue(
+      medication2.dose.amount.toString(),
+    );
+    expect(getByLabelText("Name")).toHaveDisplayValue(
+      medication2.medicament.name,
+    );
+    expect(getByLabelText("Chargenbezeichnung")).toHaveDisplayValue(
+      medication2.medicament.batchNumber.number.toString(),
+    );
   });
 });

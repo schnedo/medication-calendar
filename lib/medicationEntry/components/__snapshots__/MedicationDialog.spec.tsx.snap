@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AddMedicationDialog should render correctly 1`] = `
+exports[`MedicationDialog should render correctly 1`] = `
 <div
   aria-hidden="true"
 />

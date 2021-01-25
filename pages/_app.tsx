@@ -3,6 +3,7 @@ import { ReactElement } from "react";
 import Head from "next/head";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
+import MedicationEntriesProvider from "../lib/medicationEntry/components/MedicationEntriesProvider";
 
 function App({ Component, pageProps }: AppProps): ReactElement {
   return (
@@ -15,7 +16,9 @@ function App({ Component, pageProps }: AppProps): ReactElement {
         />
       </Head>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <Component {...pageProps} />
+        <MedicationEntriesProvider>
+          <Component {...pageProps} />
+        </MedicationEntriesProvider>
       </MuiPickersUtilsProvider>
     </>
   );

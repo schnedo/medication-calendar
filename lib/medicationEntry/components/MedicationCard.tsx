@@ -1,5 +1,12 @@
-import { ReactElement } from "react";
-import { Card, CardContent, makeStyles, Typography } from "@material-ui/core";
+import { PointerEventHandler, ReactElement } from "react";
+import {
+  Box,
+  ButtonBase,
+  Card,
+  CardContent,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
 import { formatBatchNumber, formatDose, Medication } from "../model";
 
 const useStyles = makeStyles((theme) => ({
@@ -13,11 +20,15 @@ const useStyles = makeStyles((theme) => ({
   trailer: {
     marginLeft: theme.spacing(1),
   },
+  container: {
+    width: "100%",
+    textAlign: "justify",
+  },
 }));
 
 export interface MedicationCardProps {
   medication: Medication;
-  className?: string;
+  onClick?: PointerEventHandler<HTMLButtonElement>;
 }
 
 export default function MedicationCard({
@@ -25,20 +36,26 @@ export default function MedicationCard({
     medicament: { name, batchNumber },
     dose,
   },
-  className,
+  onClick,
 }: MedicationCardProps): ReactElement {
-  const { row, content, trailer } = useStyles();
+  const { row, content, trailer, container } = useStyles();
   return (
-    <Card className={className}>
-      <CardContent className={row}>
-        <div className={content}>
-          <Typography>{name}</Typography>
-          <Typography color="textSecondary">
-            {formatBatchNumber(batchNumber)}
-          </Typography>
-        </div>
-        <Typography className={trailer}>{formatDose(dose)}</Typography>
-      </CardContent>
-    </Card>
+    <ButtonBase
+      onClick={onClick}
+      disableRipple={!onClick}
+      className={container}
+    >
+      <Card className={container}>
+        <CardContent className={row}>
+          <Box className={content}>
+            <Typography>{name}</Typography>
+            <Typography color="textSecondary">
+              {formatBatchNumber(batchNumber)}
+            </Typography>
+          </Box>
+          <Typography className={trailer}>{formatDose(dose)}</Typography>
+        </CardContent>
+      </Card>
+    </ButtonBase>
   );
 }

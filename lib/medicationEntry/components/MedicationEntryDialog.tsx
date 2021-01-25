@@ -1,4 +1,10 @@
-import { MouseEventHandler, ReactElement, useState } from "react";
+import {
+  MouseEventHandler,
+  ReactElement,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import {
   Button,
   Dialog,
@@ -10,7 +16,7 @@ import {
 } from "@material-ui/core";
 import { DatePicker } from "@material-ui/pickers";
 import { ModalProps } from "@material-ui/core/Modal";
-import { Duration, Medication, MedicationEntry } from "../model";
+import { Medication, MedicationEntry } from "../model";
 import DurationInput from "./DurationInput";
 import MedicationsInput from "./MedicationsInput";
 
@@ -20,41 +26,70 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     "&>*": {
       marginBottom: theme.spacing(2),
-      "&:lastChild": {
+      "&:last-child": {
         marginBottom: theme.spacing(0),
       },
     },
   },
 }));
 
-export interface AddMedicationEntryDialogProps {
+const defaultDate = () => new Date();
+const defaultDuration = {
+  minutes: 0,
+  hours: 0,
+};
+const defaultBodyMass = "60";
+const defaultComments = "";
+const defaultMedications: Medication[] = [];
+
+export interface MedicationEntryDialogProps {
   open: boolean;
+  medicationEntry?: MedicationEntry;
   onClose?: ModalProps["onClose"];
   onSubmit?: (entry: MedicationEntry) => Promise<void>;
   onAbort?: () => void;
 }
 
-export default function AddMedicationEntryDialog({
+// eslint-disable-next-line sonarjs/cognitive-complexity
+export default function MedicationEntryDialog({
+  open,
+  medicationEntry,
   onClose,
   onSubmit,
   onAbort,
-  open,
-}: AddMedicationEntryDialogProps): ReactElement {
-  const { dialogContent } = useStyles();
+}: MedicationEntryDialogProps): ReactElement {
+  const idRef = useRef(medicationEntry?.id ?? "");
+  const [date, setDate] = useState(medicationEntry?.date ?? defaultDate());
+  const [duration, setDuration] = useState(
+    medicationEntry?.duration ?? defaultDuration,
+  );
+  const [bodyMass, setBodyMass] = useState(
+    medicationEntry?.bodyMass.amount.toString() ?? defaultBodyMass,
+  );
+  const [comments, setComments] = useState(
+    medicationEntry?.comments ?? defaultComments,
+  );
+  const [medications, setMedications] = useState<Medication[]>(
+    medicationEntry?.medications ?? defaultMedications,
+  );
 
-  const [date, setDate] = useState(new Date());
-  const [duration, setDuration] = useState({
-    minutes: 0,
-    hours: 0,
-  } as Duration);
-  const [bodyMass, setBodyMass] = useState("60");
-  const [comments, setComments] = useState("");
-  const [medications, setMedications] = useState<Medication[]>([]);
+  useEffect(() => {
+    if (open) {
+      setDate(medicationEntry?.date ?? defaultDate());
+      setDuration(medicationEntry?.duration ?? defaultDuration);
+      setBodyMass(
+        medicationEntry?.bodyMass.amount.toString() ?? defaultBodyMass,
+      );
+      setComments(medicationEntry?.comments ?? defaultComments);
+      setMedications(medicationEntry?.medications ?? defaultMedications);
+      idRef.current = medicationEntry?.id ?? "";
+    }
+  }, [medicationEntry, open]);
 
   const handleSubmit: MouseEventHandler | undefined = onSubmit
     ? async () => {
         await onSubmit({
-          id: "",
+          id: idRef.current,
           date,
           duration,
           bodyMass: {
@@ -66,9 +101,12 @@ export default function AddMedicationEntryDialog({
       }
     : undefined;
 
+  const { dialogContent } = useStyles();
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Neuer Eintrag</DialogTitle>
+      <DialogTitle>
+        {medicationEntry ? "Eintrag bearbeiten" : "Neuer Eintrag"}
+      </DialogTitle>
       <DialogContent className={dialogContent}>
         <TextField
           id={"bodyMassInput"}

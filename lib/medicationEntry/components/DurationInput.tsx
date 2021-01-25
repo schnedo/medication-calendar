@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     "&>*": {
       marginRight: theme.spacing(1),
-      "&:lastChild": {
+      "&:last-child": {
         marginRight: theme.spacing(0),
       },
     },
