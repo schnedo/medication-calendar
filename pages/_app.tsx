@@ -4,6 +4,8 @@ import Head from "next/head";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import MedicationEntriesProvider from "../lib/medicationEntry/components/MedicationEntriesProvider";
+import { CssBaseline } from "@material-ui/core";
+import UserProvider from "../lib/contact/components/UserProvider";
 
 function App({ Component, pageProps }: AppProps): ReactElement {
   return (
@@ -15,11 +17,15 @@ function App({ Component, pageProps }: AppProps): ReactElement {
           content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
         />
       </Head>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <MedicationEntriesProvider>
-          <Component {...pageProps} />
-        </MedicationEntriesProvider>
-      </MuiPickersUtilsProvider>
+      <CssBaseline>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <UserProvider>
+            <MedicationEntriesProvider>
+              <Component {...pageProps} />
+            </MedicationEntriesProvider>
+          </UserProvider>
+        </MuiPickersUtilsProvider>
+      </CssBaseline>
     </>
   );
 }
