@@ -5,7 +5,7 @@ import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import MedicationEntriesProvider from "../lib/medicationEntry/components/MedicationEntriesProvider";
 import { CssBaseline } from "@material-ui/core";
-import UserProvider from "../lib/contact/components/UserProvider";
+import { UserProvider } from "../lib/contact";
 
 function App({ Component, pageProps }: AppProps): ReactElement {
   return (

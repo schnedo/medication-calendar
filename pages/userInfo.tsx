@@ -9,9 +9,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Edit, Menu } from "@material-ui/icons";
-import UserForm from "../lib/contact/components/UserForm";
-import { useUser } from "../lib/contact/components/UserProvider";
-import { User } from "../lib/contact";
+import { User, UserForm, useUser } from "../lib/contact";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
