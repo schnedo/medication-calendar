@@ -28,10 +28,8 @@ const useStyles = makeStyles((theme) => ({
   row: {
     display: "flex",
   },
-  rowItem: {
-    flex: "1",
-  },
   medicationsList: {
+    flex: "1",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
@@ -53,14 +51,7 @@ export default function MedicationEntryCard({
   medicationEntry: { date, medications, comments, duration, bodyMass },
   onClick,
 }: MedicationEntryCardProps): ReactElement {
-  const {
-    container,
-    medicationsList,
-    row,
-    rowItem,
-    header,
-    trailer,
-  } = useStyles();
+  const { container, medicationsList, row, header, trailer } = useStyles();
   return (
     <ButtonBase
       onClick={onClick}
@@ -72,11 +63,11 @@ export default function MedicationEntryCard({
           <Typography className={header}>
             {format(date, "EEEEEE dd")}
           </Typography>
-          <Box className={`${medicationsList} ${rowItem}`}>
+          <Box className={medicationsList}>
             {medications.map((medication) => (
               <MedicationCard medication={medication} key={medication.id} />
             ))}
-            <Typography>{comments}</Typography>
+            <Typography align={"left"}>{comments}</Typography>
           </Box>
           <Box className={trailer}>
             <Typography>{formatDuration(duration)}</Typography>

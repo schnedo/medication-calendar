@@ -5,9 +5,10 @@ import {
 } from "../lib/medicationEntry";
 import { useMedicationEntries } from "../lib/medicationEntry/components/MedicationEntriesProvider";
 import MedicationEntryDialog from "../lib/medicationEntry/components/MedicationEntryDialog";
-import { Fab, makeStyles, Menu, MenuItem } from "@material-ui/core";
+import { Container, Fab, makeStyles, Menu, MenuItem } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import { MedicationEntryCardListSelection } from "../lib/medicationEntry/components/MedicationEntryCardList";
+import { AppBarUser } from "../lib/layout";
 
 const useStyles = makeStyles((theme) => ({
   actionButton: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Home(): ReactElement {
+export default function Home({ AppBar }: AppBarUser): ReactElement {
   const { entries, deleteEntry, saveEntry } = useMedicationEntries();
 
   const [
@@ -52,7 +53,8 @@ export default function Home(): ReactElement {
   const { actionButton } = useStyles();
   return (
     <>
-      <main>
+      <AppBar title={"Medikamenten Tagebuch"} />
+      <Container component={"main"}>
         <MedicationEntryCardList
           medicationEntries={entries}
           onSelect={handleSelect}
@@ -89,7 +91,7 @@ export default function Home(): ReactElement {
         >
           <Add />
         </Fab>
-      </main>
+      </Container>
     </>
   );
 }
