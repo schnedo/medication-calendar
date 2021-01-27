@@ -19,6 +19,7 @@ import { ModalProps } from "@material-ui/core/Modal";
 import { Medication, MedicationEntry } from "../model";
 import DurationInput from "./DurationInput";
 import MedicationsInput from "./MedicationsInput";
+import { useUser } from "../../contact/";
 
 const useStyles = makeStyles((theme) => ({
   dialogContent: {
@@ -58,13 +59,19 @@ export default function MedicationEntryDialog({
   onSubmit,
   onAbort,
 }: MedicationEntryDialogProps): ReactElement {
+  const {
+    user: { bodyMass: currentBodyMass },
+  } = useUser();
+
   const idRef = useRef(medicationEntry?.id ?? "");
   const [date, setDate] = useState(medicationEntry?.date ?? defaultDate());
   const [duration, setDuration] = useState(
     medicationEntry?.duration ?? defaultDuration,
   );
   const [bodyMass, setBodyMass] = useState(
-    medicationEntry?.bodyMass.amount.toString() ?? defaultBodyMass,
+    medicationEntry?.bodyMass.amount.toString() ??
+      currentBodyMass?.amount.toString() ??
+      defaultBodyMass,
   );
   const [comments, setComments] = useState(
     medicationEntry?.comments ?? defaultComments,
@@ -78,13 +85,15 @@ export default function MedicationEntryDialog({
       setDate(medicationEntry?.date ?? defaultDate());
       setDuration(medicationEntry?.duration ?? defaultDuration);
       setBodyMass(
-        medicationEntry?.bodyMass.amount.toString() ?? defaultBodyMass,
+        medicationEntry?.bodyMass.amount.toString() ??
+          currentBodyMass?.amount.toString() ??
+          defaultBodyMass,
       );
       setComments(medicationEntry?.comments ?? defaultComments);
       setMedications(medicationEntry?.medications ?? defaultMedications);
       idRef.current = medicationEntry?.id ?? "";
     }
-  }, [medicationEntry, open]);
+  }, [currentBodyMass, medicationEntry, open]);
 
   const handleSubmit: MouseEventHandler | undefined = onSubmit
     ? async () => {
