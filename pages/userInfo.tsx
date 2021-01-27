@@ -4,6 +4,8 @@ import { Edit } from "@material-ui/icons";
 import { User, UserForm, useUser } from "../lib/contact";
 import { AppBarUser } from "../lib/layout";
 
+export const title = "Benutzer Informationen";
+
 export default function UserInfo({ AppBar }: AppBarUser): ReactElement {
   const [readOnly, setReadOnly] = useState(true);
   const handleEditClick = () => setReadOnly(false);
@@ -18,7 +20,8 @@ export default function UserInfo({ AppBar }: AppBarUser): ReactElement {
   return (
     <>
       <AppBar
-        title={"Benutzer Informationen"}
+        withBackButton
+        title={title}
         RightButtonIcon={Edit}
         onRightButtonClick={handleEditClick}
       />
