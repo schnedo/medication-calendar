@@ -45,7 +45,7 @@ const transform = ({
     address,
     phoneNumber,
     diagnosis,
-    bodyMass: { amount: parseInt(bodyMass) },
+    bodyMass: bodyMass ? { amount: parseInt(bodyMass) } : null,
   };
 };
 
