@@ -3,14 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "cypress:open": "cypress open",
     "dev": "next dev",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings 0 && prettier --check .",
     "build": "next build",
     "export": "next export -o docs/",
-    "test": "npm run test:unit && npm run test:e2e",
+    "test": "npm run test:unit",
     "test:unit": "jest lib",
-    "test:e2e": "start-server-and-test start http://localhost:3000/medication-calendar 'cypress run'",
     "start": "next start"
   },
   "dependencies": {
@@ -38,12 +36,8 @@
     "@typescript-eslint/parser": "4.14.1",
     "@userlike/babel-plugin-joke": "2.0.0",
     "@userlike/joke": "2.0.0",
-    "cypress": "6.3.0",
-    "cypress-plugin-snapshots": "1.4.4",
-    "cypress-react-unit-test": "4.17.2",
     "eslint": "7.18.0",
     "eslint-config-prettier": "7.2.0",
-    "eslint-plugin-cypress": "2.11.2",
     "eslint-plugin-jest": "24.1.3",
     "eslint-plugin-react": "7.22.0",
     "eslint-plugin-react-hooks": "4.2.0",
@@ -80,7 +74,6 @@
       "plugin:react-hooks/recommended",
       "plugin:@typescript-eslint/recommended",
       "plugin:sonarjs/recommended",
-      "plugin:cypress/recommended",
       "prettier",
       "prettier/react",
       "prettier/@typescript-eslint"
