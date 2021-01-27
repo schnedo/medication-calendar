@@ -14,6 +14,7 @@ import { format } from "date-fns";
 
 const { default: DurationInput } = mock(import("./DurationInput"));
 const { default: MedicationsInput } = mock(import("./MedicationsInput"));
+const { useUser } = mock(import("../../contact"));
 
 function expectFieldsEqualEntry(
   medicationEntry: MedicationEntry,
@@ -45,6 +46,17 @@ describe("MedicationEntryDialog", () => {
   beforeEach(() => {
     DurationInput.mockReturnValue(<div>mocked Duration Input</div>);
     MedicationsInput.mockReturnValue(<div>mocked MedicationsInput</div>);
+    useUser.mockReturnValue({
+      user: {
+        fullName: "fullName",
+        address: "address",
+        bodyMass: null,
+        birthdate: null,
+        diagnosis: "diagnosis",
+        phoneNumber: "1",
+      },
+      saveUser: jest.fn(),
+    });
   });
 
   it("should render correctly", async () => {
@@ -293,5 +305,34 @@ describe("MedicationEntryDialog", () => {
     };
 
     expectFieldsEqualEntry(expected, getByLabelText);
+  });
+
+  it("should set bodyMass from user data if present", async () => {
+    expect.hasAssertions();
+
+    const userContext = {
+      user: {
+        fullName: "fullName",
+        address: "address",
+        phoneNumber: "2",
+        bodyMass: {
+          amount: 23,
+        },
+        diagnosis: "diagnosis",
+        birthdate: new Date(2021, 1, 10),
+      },
+      saveUser: jest.fn(),
+    };
+    useUser.mockReturnValue(userContext);
+
+    const { getByLabelText } = render(
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <MedicationEntryDialog open={true} />
+      </MuiPickersUtilsProvider>,
+    );
+
+    expect(getByLabelText("Körpergewicht")).toHaveDisplayValue(
+      userContext.user.bodyMass.amount.toString(),
+    );
   });
 });
