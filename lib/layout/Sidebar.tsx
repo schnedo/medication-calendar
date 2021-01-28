@@ -8,13 +8,32 @@ import {
   ListItemText,
 } from "@material-ui/core";
 import Link from "next/link";
-import { title } from "../../pages/userInfo";
+import { title as userInfoTitle } from "../../pages/userInfo";
+import { title as doctorInfoTitle } from "../../pages/doctorInfo";
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
     "&>*": { minWidth: theme.spacing(20) },
   },
 }));
+
+interface SidebarLinkProps {
+  href: string | URL;
+  text: string;
+}
+function SidebarLink({ href, text }: SidebarLinkProps) {
+  return (
+    <ListItem button>
+      <ListItemText>
+        <Link href={href} passHref>
+          <MuiLink color={"inherit"} underline={"none"}>
+            {text}
+          </MuiLink>
+        </Link>
+      </ListItemText>
+    </ListItem>
+  );
+}
 
 export interface SidebarProps {
   open: boolean;
@@ -36,15 +55,8 @@ export default function Sidebar({
       onClose={onClose}
     >
       <List>
-        <ListItem button>
-          <ListItemText>
-            <Link href={"/userInfo"} passHref>
-              <MuiLink color={"inherit"} underline={"none"}>
-                {title}
-              </MuiLink>
-            </Link>
-          </ListItemText>
-        </ListItem>
+        <SidebarLink href={"/userInfo"} text={userInfoTitle} />
+        <SidebarLink href={"/doctorInfo"} text={doctorInfoTitle} />
       </List>
     </SwipeableDrawer>
   );
