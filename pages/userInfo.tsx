@@ -22,8 +22,15 @@ export default function UserInfo({ AppBar }: AppBarUser): ReactElement {
       <AppBar
         withBackButton
         title={title}
-        RightButtonIcon={Edit}
-        onRightButtonClick={handleEditClick}
+        rightButton={
+          readOnly
+            ? {
+                icon: Edit,
+                ariaLabel: "edit",
+                onClick: handleEditClick,
+              }
+            : undefined
+        }
       />
       <Container component={"main"}>
         <UserForm

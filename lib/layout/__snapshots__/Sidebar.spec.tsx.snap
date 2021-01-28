@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Sidebar should render correctly 1`] = `
+<div
+  aria-hidden="true"
+>
+  <div
+    class="PrivateSwipeArea-root-2 PrivateSwipeArea-anchorLeft-3"
+    style="width: 20px;"
+  />
+</div>
+`;

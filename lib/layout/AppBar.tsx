@@ -23,18 +23,22 @@ export interface AppBarUser {
   AppBar: typeof AppBar;
 }
 
+export interface RightButtonConfig {
+  icon: SvgIconComponent;
+  ariaLabel: string;
+  onClick?: () => void;
+}
+
 export interface AppBarProps {
   title?: string;
   withBackButton?: boolean;
-  RightButtonIcon?: SvgIconComponent;
-  onRightButtonClick?: () => void;
+  rightButton?: RightButtonConfig;
 }
 
 export default function AppBar({
   title,
   withBackButton,
-  RightButtonIcon,
-  onRightButtonClick,
+  rightButton,
 }: AppBarProps): ReactElement {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const router = useRouter();
@@ -53,6 +57,7 @@ export default function AppBar({
                 ? () => router.back()
                 : () => setSidebarOpen((old) => !old)
             }
+            aria-label={withBackButton ? "go back" : "open menu"}
           >
             {withBackButton ? <ArrowBack /> : <Menu />}
           </IconButton>
@@ -62,9 +67,10 @@ export default function AppBar({
           <IconButton
             edge={"end"}
             color={"inherit"}
-            onClick={onRightButtonClick}
+            onClick={rightButton?.onClick}
+            aria-label={rightButton?.ariaLabel}
           >
-            {RightButtonIcon ? <RightButtonIcon /> : <></>}
+            {rightButton ? <rightButton.icon /> : <></>}
           </IconButton>
         </Toolbar>
       </MuiAppBar>
