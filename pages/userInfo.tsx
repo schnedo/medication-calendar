@@ -1,26 +1,12 @@
 import { ReactElement, useState } from "react";
-import {
-  AppBar,
-  Box,
-  Container,
-  IconButton,
-  makeStyles,
-  Toolbar,
-  Typography,
-} from "@material-ui/core";
-import { Edit, Menu } from "@material-ui/icons";
+import { Container } from "@material-ui/core";
+import { Edit } from "@material-ui/icons";
 import { User, UserForm, useUser } from "../lib/contact";
+import { AppBarUser } from "../lib/layout";
 
-const useStyles = makeStyles((theme) => ({
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flex: "1",
-  },
-}));
+export const title = "Benutzer Informationen";
 
-export default function UserInfo(): ReactElement {
+export default function UserInfo({ AppBar }: AppBarUser): ReactElement {
   const [readOnly, setReadOnly] = useState(true);
   const handleEditClick = () => setReadOnly(false);
   const handleAbort = () => setReadOnly(true);
@@ -31,30 +17,21 @@ export default function UserInfo(): ReactElement {
     setReadOnly(true);
   };
 
-  const { menuButton, title } = useStyles();
   return (
-    <Box>
-      <AppBar position={"sticky"}>
-        <Toolbar>
-          <IconButton className={menuButton} edge={"start"} color={"inherit"}>
-            <Menu />
-          </IconButton>
-          <Typography className={title} variant={"h6"}>
-            Benutzer Informationen
-          </Typography>
-          {readOnly ? (
-            <IconButton
-              edge={"end"}
-              color={"inherit"}
-              onClick={handleEditClick}
-            >
-              <Edit />
-            </IconButton>
-          ) : (
-            <></>
-          )}
-        </Toolbar>
-      </AppBar>
+    <>
+      <AppBar
+        withBackButton
+        title={title}
+        rightButton={
+          readOnly
+            ? {
+                icon: Edit,
+                ariaLabel: "edit",
+                onClick: handleEditClick,
+              }
+            : undefined
+        }
+      />
       <Container component={"main"}>
         <UserForm
           user={user}
@@ -63,6 +40,6 @@ export default function UserInfo(): ReactElement {
           onSubmit={handleSubmit}
         />
       </Container>
-    </Box>
+    </>
   );
 }
