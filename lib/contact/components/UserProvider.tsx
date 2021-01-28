@@ -49,7 +49,15 @@ export default function UserProvider({
     localforage
       .getItem<User>(userKey)
       .then((maybeUser) => maybeUser ?? defaultUser)
-      .then((user) => setValue((old) => ({ ...old, user })));
+      .then((user) =>
+        setValue({
+          user,
+          saveUser: async (newUser) => {
+            await localforage.setItem(userKey, newUser);
+            setValue((old) => ({ ...old, user: newUser }));
+          },
+        }),
+      );
   }, []);
 
   return <userContext.Provider value={value}>{children}</userContext.Provider>;

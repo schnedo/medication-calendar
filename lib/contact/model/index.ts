@@ -3,5 +3,3 @@ export { format as formatBodyMass } from "./bodyMass";
 export type { default as Doctor } from "./doctor";
 export type { default as TreatmentCenter } from "./treatmentCenter";
 export type { default as User } from "./user";
-
-export * as Repository from "./repository";
