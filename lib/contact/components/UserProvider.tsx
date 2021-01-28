@@ -27,6 +27,8 @@ const defaultContext: UserContext = {
   user: defaultUser,
   saveUser: async (user) => {
     await localforage.setItem(userKey, user);
+    defaultContext.user =
+      (await localforage.getItem<User>(userKey)) ?? defaultUser;
   },
 };
 const userContext = createContext<UserContext>(defaultContext);
