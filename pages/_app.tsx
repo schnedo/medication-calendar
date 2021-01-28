@@ -5,9 +5,12 @@ import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import MedicationEntriesProvider from "../lib/medicationEntry/components/MedicationEntriesProvider";
 import { CssBaseline } from "@material-ui/core";
-import { UserProvider } from "../lib/contact";
+import {
+  UserProvider,
+  DoctorProvider,
+  TreatmentCenterProvider,
+} from "../lib/contact";
 import { AppBar } from "../lib/layout";
-import DoctorProvider from "../lib/contact/components/DoctorProvider";
 
 function App({ Component, pageProps }: AppProps): ReactElement {
   return (
@@ -22,11 +25,13 @@ function App({ Component, pageProps }: AppProps): ReactElement {
       <CssBaseline>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <UserProvider>
-            <DoctorProvider>
-              <MedicationEntriesProvider>
-                <Component {...pageProps} AppBar={AppBar} />
-              </MedicationEntriesProvider>
-            </DoctorProvider>
+            <TreatmentCenterProvider>
+              <DoctorProvider>
+                <MedicationEntriesProvider>
+                  <Component {...pageProps} AppBar={AppBar} />
+                </MedicationEntriesProvider>
+              </DoctorProvider>
+            </TreatmentCenterProvider>
           </UserProvider>
         </MuiPickersUtilsProvider>
       </CssBaseline>
