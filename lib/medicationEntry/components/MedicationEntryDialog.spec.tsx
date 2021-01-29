@@ -64,13 +64,13 @@ describe("MedicationEntryDialog", () => {
 
     jest.setSystemTime(new Date(2021, 1, 13));
 
-    const { container } = render(
+    const { baseElement } = render(
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <MedicationEntryDialog open={true} />
       </MuiPickersUtilsProvider>,
     );
 
-    expect(container).toMatchSnapshot();
+    expect(baseElement).toMatchSnapshot();
   });
 
   // waitFor does throw "TypeError: Cannot read property 'createEvent' of null" in CI Pipeline

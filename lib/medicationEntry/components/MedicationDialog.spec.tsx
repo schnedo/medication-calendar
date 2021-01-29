@@ -14,9 +14,9 @@ describe("MedicationDialog", () => {
   it("should render correctly", async () => {
     expect.hasAssertions();
 
-    const { container } = render(<MedicationDialog open={true} />);
+    const { baseElement } = render(<MedicationDialog open={true} />);
 
-    expect(container).toMatchSnapshot();
+    expect(baseElement).toMatchSnapshot();
   });
 
   it("should call onAbort when pressing abort", async () => {
@@ -62,7 +62,7 @@ describe("MedicationDialog", () => {
     expect(onSubmit).toHaveBeenLastCalledWith(expected);
   });
 
-  it("should reset fields when dialog gets closed", async () => {
+  it("should reset fields when dialog gets opened", async () => {
     expect.hasAssertions();
 
     const { getByLabelText, rerender } = render(
