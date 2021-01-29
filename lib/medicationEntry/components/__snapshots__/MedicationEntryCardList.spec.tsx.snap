@@ -26,12 +26,21 @@ exports[`MedicationEntryCardList should render loading animation when entries ar
 
 exports[`MedicationEntryCardList should render medication card list 1`] = `
 <div>
-  <div
-    class="MuiBox-root MuiBox-root-2 makeStyles-container-1"
+  <ul
+    class="MuiList-root MuiList-padding"
   >
-    <div>
-      mocked MedicationEntryCard
-    </div>
-  </div>
+    <li
+      class="MuiListSubheader-root MuiListSubheader-sticky MuiListSubheader-gutters"
+    >
+      February 2020
+    </li>
+    <li
+      class="MuiListItem-root MuiListItem-gutters"
+    >
+      <div>
+        mocked MedicationEntryCard
+      </div>
+    </li>
+  </ul>
 </div>
 `;
