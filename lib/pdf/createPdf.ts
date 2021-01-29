@@ -68,7 +68,7 @@ const toTableRow = ({
   ];
 };
 
-export default function generatePdf(
+export default function createPdf(
   medicationEntries: MedicationEntry[],
 ): TCreatedPdf {
   const documentDefinition: TDocumentDefinitions = {
