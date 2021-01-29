@@ -6,9 +6,10 @@ import {
 import { useMedicationEntries } from "../lib/medicationEntry/components/MedicationEntriesProvider";
 import MedicationEntryDialog from "../lib/medicationEntry/components/MedicationEntryDialog";
 import { Container, Fab, makeStyles, Menu, MenuItem } from "@material-ui/core";
-import { Add } from "@material-ui/icons";
+import { Add, Print } from "@material-ui/icons";
 import { MedicationEntryCardListSelection } from "../lib/medicationEntry/components/MedicationEntryCardList";
-import { AppBarUser } from "../lib/layout";
+import { AppBarUser, RightButtonConfig } from "../lib/layout";
+import createPdf from "../lib/pdf/createPdf";
 
 const useStyles = makeStyles((theme) => ({
   actionButton: {
@@ -49,11 +50,20 @@ export default function Home({ AppBar }: AppBarUser): ReactElement {
   const handleEdit = async () => {
     showDialog();
   };
+  const printButtonConfig: RightButtonConfig | undefined = entries
+    ? {
+        icon: Print,
+        ariaLabel: "print",
+        onClick() {
+          createPdf(entries).open();
+        },
+      }
+    : undefined;
 
   const { actionButton } = useStyles();
   return (
     <>
-      <AppBar title={"Medikamenten Tagebuch"} />
+      <AppBar title={"Medikamenten Tagebuch"} rightButton={printButtonConfig} />
       <Container component={"main"}>
         <MedicationEntryCardList
           medicationEntries={entries}

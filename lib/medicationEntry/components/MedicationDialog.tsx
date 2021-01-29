@@ -16,11 +16,23 @@ import {
   DialogContent,
   DialogTitle,
   FormGroup,
+  makeStyles,
   TextField,
 } from "@material-ui/core";
 import { ModalProps } from "@material-ui/core/Modal";
 import { Medication } from "../model";
 import { v4 } from "uuid";
+
+const useStyles = makeStyles((theme) => ({
+  formGroup: {
+    "&>*": {
+      marginTop: theme.spacing(1),
+      "&:first-child": {
+        marginTop: "0",
+      },
+    },
+  },
+}));
 
 function checkValidity<T>(
   value: T,
@@ -88,17 +100,15 @@ export default function MedicationDialog({
 
   useEffect(() => {
     if (open) {
-      const resetState = () => {
-        setDoseAmount(medication?.dose.amount.toString() ?? "");
-        setDoseValid(true);
-        setName(medication?.medicament.name ?? "");
-        setNameValid(true);
-        setBatchNumber(
-          medication?.medicament.batchNumber.number.toString() ?? "",
-        );
-        setBatchNumberValid(true);
-      };
-      resetState();
+      idRef.current = medication?.id ?? v4();
+      setDoseAmount(medication?.dose.amount.toString() ?? "");
+      setDoseValid(true);
+      setName(medication?.medicament.name ?? "");
+      setNameValid(true);
+      setBatchNumber(
+        medication?.medicament.batchNumber.number.toString() ?? "",
+      );
+      setBatchNumberValid(true);
     }
   }, [open, medication]);
 
@@ -136,22 +146,12 @@ export default function MedicationDialog({
       }
     : undefined;
 
+  const { formGroup } = useStyles();
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>Neue Medikation</DialogTitle>
       <DialogContent>
-        <FormGroup>
-          <TextField
-            id={"doseInput"}
-            label={"Dosis"}
-            type={"number"}
-            value={doseAmount}
-            onChange={handleDoseChange}
-            onBlur={handleDoseBlur}
-            onFocus={handleDoseFocus}
-            error={!doseValid}
-            helperText={!doseValid && "Bitte Dosis eingeben"}
-          />
+        <FormGroup className={formGroup}>
           <TextField
             id={"nameInput"}
             label={"Name"}
@@ -161,6 +161,7 @@ export default function MedicationDialog({
             onFocus={handleNameFocus}
             error={!nameValid}
             helperText={!nameValid && "Bitte Name eingeben"}
+            variant={"outlined"}
           />
           <TextField
             id={"batchNumberInput"}
@@ -174,6 +175,19 @@ export default function MedicationDialog({
             helperText={
               !batchNumberValid && "Bitte Chargenbezeichnung eingeben"
             }
+            variant={"outlined"}
+          />
+          <TextField
+            id={"doseInput"}
+            label={"Dosis"}
+            type={"number"}
+            value={doseAmount}
+            onChange={handleDoseChange}
+            onBlur={handleDoseBlur}
+            onFocus={handleDoseFocus}
+            error={!doseValid}
+            helperText={!doseValid && "Bitte Dosis eingeben"}
+            variant={"outlined"}
           />
         </FormGroup>
       </DialogContent>
