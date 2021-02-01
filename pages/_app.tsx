@@ -1,5 +1,5 @@
 import { AppProps } from "next/app";
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 import Head from "next/head";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
@@ -11,16 +11,16 @@ import {
   TreatmentCenterProvider,
 } from "../lib/contact";
 import { AppBar } from "../lib/layout";
+import { registerServiceWorker } from "../lib/worker";
 
 function App({ Component, pageProps }: AppProps): ReactElement {
+  useEffect(() => {
+    registerServiceWorker();
+  });
   return (
     <>
       <Head>
         <title>Medication Calendar</title>
-        <meta
-          name="viewport"
-          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
-        />
       </Head>
       <CssBaseline>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
