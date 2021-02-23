@@ -42,7 +42,7 @@
     "eslint-plugin-jest": "24.1.5",
     "eslint-plugin-react": "7.22.0",
     "eslint-plugin-react-hooks": "4.2.0",
-    "eslint-plugin-sonarjs": "0.5.0",
+    "eslint-plugin-sonarjs": "0.6.0",
     "jest": "26.6.3",
     "next": "10.0.6",
     "next-pwa": "5.0.5",
