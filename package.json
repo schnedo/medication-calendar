@@ -30,7 +30,7 @@
     "@testing-library/user-event": "13.1.9",
     "@types/jest": "26.0.23",
     "@types/pdfmake": "0.1.17",
-    "@types/react": "17.0.7",
+    "@types/react": "17.0.8",
     "@types/react-dom": "17.0.5",
     "@types/uuid": "8.3.0",
     "@typescript-eslint/eslint-plugin": "4.25.0",
